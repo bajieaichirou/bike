@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mine_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gary_bg"
+    tools:context="com.qianying.bike.slidingMenu.mineSecond.MineInfoActivity">
+
+    <include
+        android:id="@+id/user_info_title"
+        layout="@layout/comm_title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/user_icon_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="头像" />
+
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@color/white"
+            android:layout_toLeftOf="@+id/arrow_user_icon"
+            android:src="@mipmap/default_head_image"/>
+
+        <ImageView
+            android:id="@+id/arrow_user_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right" />
+    </RelativeLayout>
+        <View
+            style="@style/horizontalLine"
+            android:layout_marginLeft="@dimen/dimen_20" />
+
+    <RelativeLayout
+        android:id="@+id/user_tag_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="@string/user_tag" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/arrow_user_tag"
+            android:gravity="center_vertical"
+            android:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/arrow_user_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right" />
+    </RelativeLayout>
+        <View
+            style="@style/horizontalLine"
+            android:layout_marginLeft="@dimen/dimen_20" />
+    <RelativeLayout
+        android:id="@+id/user_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="@string/user_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/arrow_user_name"
+            android:gravity="center_vertical"
+            android:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/arrow_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right" />
+    </RelativeLayout>
+        <View
+            style="@style/horizontalLine"
+            android:layout_marginLeft="@dimen/dimen_20" />
+    <RelativeLayout
+        android:id="@+id/real_name_auth_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="@string/real_name_auth" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/arrow_real_name_auth"
+            android:gravity="center_vertical"
+            android:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/arrow_real_name_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right" />
+    </RelativeLayout>
+        <View
+            style="@style/horizontalLine"
+            android:layout_marginLeft="@dimen/dimen_20" />
+    <RelativeLayout
+        android:id="@+id/phone_num_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="@string/phone_num" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/arrow_phone_num"
+            android:gravity="center_vertical"
+            android:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/arrow_phone_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/arrow_right" />
+    </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

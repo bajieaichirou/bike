@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_credit_score"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qianying.bike.slidingMenu.mineSecond.CreditScoreActivity">
+
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/orange"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <LinearLayout
+            android:id="@+id/ll_layout"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="180dp">
+
+            <com.qianying.bike.widget.fitchart.FitChart
+                android:id="@+id/fitChart"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerHorizontal="true"
+                ptr:animationMode="overdraw" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_layout"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/credit_score_bg"
+            android:text="信用积分规则"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerInParent="true"
+            android:textSize="12sp"
+            android:id="@+id/xy_gz" />
+
+
+    </RelativeLayout>
+
+
+    <!--<cn.shnow.pulltorefreshlib.PullToRefreshListView-->
+        <!--android:id="@+id/re_listView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="20px"-->
+        <!--android:layout_weight="1"-->
+        <!--android:divider="@color/gray"-->
+        <!--android:dividerHeight="20px"-->
+        <!--android:scrollbars="none" />-->
+
+    <cn.shnow.pulltorefreshlib.PullToRefreshListView
+        android:id="@+id/re_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        ptr:ptrMode="both"
+        ptr:ptrAnimationStyle="flip"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:requiresFadingEdge="none"
+        ptr:ptrHeaderBackground="@android:color/transparent"
+        ptr:ptrHeaderTextColor="@color/info_value_color"
+        android:verticalSpacing="60px"
+        android:horizontalSpacing="30px"
+        android:layout_marginBottom="36px"
+        android:divider="@color/gray"
+        android:dividerHeight="40px"/>
+
+
+</LinearLayout>

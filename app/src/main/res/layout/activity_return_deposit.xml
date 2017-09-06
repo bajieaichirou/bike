@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qianying.bike.slidingMenu.ballet.ReturnDepositActivity">
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/orange"/>
+
+    <ImageView
+        android:id="@+id/img_correct"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/titlebar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:src="@mipmap/correct"/>
+
+    <TextView
+        android:id="@+id/txt_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_correct"
+        android:layout_marginTop="13dp"
+        android:gravity="center"
+        android:text="申请退款成功"
+        android:textColor="@color/orange"
+        android:textSize="14dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_deposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_success"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="¥"
+            android:textColor="@color/content"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/txt_deposit_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="199"
+            android:textColor="@color/content"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_deposit"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="由于银行原因可能会在0-3个工作日内到账"
+        android:textColor="#666666"
+        android:textSize="10dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_charge"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/txt_hint"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="@string/charge"
+        android:textColor="@color/white"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/txt_look_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_charge"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="查看账目明细"
+        android:textColor="@color/orange"
+        android:textSize="12dp"/>
+
+</RelativeLayout>

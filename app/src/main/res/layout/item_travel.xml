@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gary_bg"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="13dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_fei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/txt_cost"
+            android:gravity="right"
+            android:text="发费"
+            android:textColor="@color/text"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/txt_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_fei"
+            android:layout_marginTop="9dp"
+            android:text="¥2.00"
+            android:textColor="@color/blue"
+            android:textSize="12dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/top_oval"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_toRightOf="@+id/ll_left"
+        android:background="@drawable/round_white"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_oval"
+        android:layout_marginLeft="-6dp"
+        android:layout_toRightOf="@+id/top_oval"
+        android:background="@color/orange"
+        />
+
+    <View
+        android:id="@+id/bottom_oval"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/divider"
+        android:layout_toRightOf="@+id/ll_left"
+        android:background="@drawable/round_white"/>
+
+
+    <TextView
+        android:id="@+id/txt_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_toRightOf="@+id/top_oval"
+        android:text="2017-5-23"
+        android:textColor="#333333"
+        android:textSize="12dp"/>
+
+
+    <TextView
+        android:id="@+id/txt_time_drive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/txt_time"
+        android:layout_toRightOf="@+id/top_oval"
+        android:text="骑行时间： 20分钟"
+        android:textColor="#333333"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/txt_distance_drive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/txt_time_drive"
+        android:layout_toRightOf="@+id/top_oval"
+        android:text="骑行距离： 2km"
+        android:textColor="#333333"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/txt_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="144dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/txt_time_drive"
+        android:layout_toRightOf="@+id/top_oval"
+        android:text="编号：2333333333"
+        android:textColor="@color/text"
+        android:textSize="12dp"/>
+
+
+
+
+</RelativeLayout>

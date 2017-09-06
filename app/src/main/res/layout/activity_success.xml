@@ -1,0 +1,95 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/colorAccent"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_below="@+id/titlebar"
+        android:background="@color/colorAccent">
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_tel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_deposit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_certification"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_complete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/finish" />
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="恭喜您注册成功"
+        android:layout_gravity="center"
+        android:textColor="@color/orange"
+        android:textSize="22sp"/>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:layout_gravity="center"
+            android:textColor="@color/orange"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="秒后跳转首页"
+            android:layout_gravity="center"
+            android:textColor="@color/gray_text"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

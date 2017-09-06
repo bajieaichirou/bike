@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qianying.bike.register.CertificationActivity">
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/colorAccent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/titlebar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gary_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="姓名"
+            android:textColor="@color/content"/>
+
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:background="@color/gary_bg"
+            android:gravity="center_vertical"
+            android:hint="请输入真实姓名"
+            android:textColor="@color/text"
+            android:textSize="14dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/gary_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="身份证号"
+            android:textColor="@color/content"/>
+
+        <EditText
+            android:id="@+id/edit_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:background="@color/gary_bg"
+            android:gravity="center_vertical"
+            android:hint="请输入身份证号"
+            android:textColor="@color/text"
+            android:textSize="14dp"/>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@color/gary_bg"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:text="国籍"-->
+            <!--android:textColor="@color/content"/>-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/edit_country"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:background="@color/gary_bg"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:hint="请输入您的国籍"-->
+            <!--android:textColor="@color/text"-->
+            <!--android:textSize="14dp"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="120dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_marginTop="20dp">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<com.facebook.drawee.view.SimpleDraweeView-->
+                <!--android:id="@+id/img_card_by_hand"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:background="#99999999"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/add_pic"-->
+                <!--android:layout_centerInParent="true"/>-->
+
+        <!--</RelativeLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<com.facebook.drawee.view.SimpleDraweeView-->
+                <!--android:id="@+id/img_card_front"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="#99999999"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/add_pic"-->
+                <!--android:layout_centerInParent="true"/>-->
+        <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="手持证件照"-->
+            <!--android:textColor="@color/content"-->
+            <!--android:textSize="13dp"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="证件正面照"-->
+            <!--android:textColor="@color/content"-->
+            <!--android:textSize="13dp"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="30dp"-->
+        <!--android:layout_marginRight="30dp"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:text="请提供2张照片，一张为本人手持身份证件的正面合影；另一张为身份证件原件照。请保证五官、证件内页内容均清晰可见(限中华人民共和国身份证、护照、台胞证)"-->
+        <!--android:textColor="@color/text"-->
+        <!--android:textSize="11dp"/>-->
+
+
+    <TextView
+        android:id="@+id/txt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/gray_btn"
+        android:textSize="16dp"
+        android:text="认证"
+        android:gravity="center"
+        android:textColor="@color/text"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"/>
+</LinearLayout>

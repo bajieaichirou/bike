@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<ImageView-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:src="@mipmap/defoult_logo" />-->
+
+    <!--<TextView-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:drawableLeft="@mipmap/defoult_copy"-->
+        <!--android:drawablePadding="10dp"-->
+        <!--android:layout_marginBottom="@dimen/dimen_20"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="@string/launcher_company"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/welcome"
+        android:scaleType="fitXY"/>
+
+</RelativeLayout>

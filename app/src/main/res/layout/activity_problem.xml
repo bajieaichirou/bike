@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/comm_title_layout" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="开不了锁"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gary_bg"
+        android:drawableLeft="@mipmap/khfw_sm"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="扫描二维码或手动输入编码" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="1.观察车锁是否亮灯"
+        android:textSize="16dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="如果车辆蓝灯亮起，代表这个车辆已经被预约，请换其他小樱单车使用"
+        android:textColor="@color/text"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="2.观察车锁是否亮灯"
+        android:textSize="16dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="如果车辆蓝灯亮起，代表这个车辆已经被预约，请换其他小樱单车使用"
+        android:textColor="@color/text"
+        android:textSize="10dp" />
+
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/gary_bg" />
+
+    <TextView
+        android:text="提交"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@drawable/auth_submit_shape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

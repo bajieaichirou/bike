@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.qianying.bike.slidingMenu.ballet.DepositActivity">
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/orange"/>
+
+    <TextView
+        android:id="@+id/txt_deposit_charge_hint"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/titlebar"
+        android:layout_marginLeft="14dp"
+        android:gravity="center_vertical"
+        android:text="@string/deposit_charge"
+        android:textColor="#333333"
+        android:textSize="11dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_charge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_deposit_charge_hint"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_charge_100"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/orange"
+                android:gravity="center"
+                android:text="100元"
+                android:textColor="@color/content"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/txt_charge_20"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/btn_bg"
+                android:gravity="center"
+                android:text="20元"
+                android:textColor="@color/content"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="14dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_charge_50"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/btn_bg"
+                android:gravity="center"
+                android:text="50元"
+                android:textColor="@color/content"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/txt_charge_10"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/btn_bg"
+                android:gravity="center"
+                android:text="10元"
+                android:textColor="@color/content"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll_charge"
+        android:layout_marginTop="16dp"
+        android:background="@color/gary_bg"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_wx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_marginTop="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="25dp"
+            android:drawableLeft="@mipmap/wx_pay"
+            android:drawablePadding="10dp"
+            android:text="微信支付"
+            android:gravity="center"
+            android:textColor="@color/content"
+            android:textSize="13dp"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_wx"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:button="@drawable/btn_check_bg"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_alipay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_wx"
+        android:layout_marginTop="17dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="25dp"
+            android:drawableLeft="@mipmap/apliy_pay"
+            android:drawablePadding="10dp"
+            android:text="支付宝支付"
+            android:gravity="center"
+            android:textColor="@color/content"
+            android:textSize="13dp"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_alipay"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:button="@drawable/btn_check_bg"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_charge"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="@string/charge"
+        android:textColor="@color/white"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_charge"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:gravity="center"
+        android:text="小樱不会以任何形式要求您输入银行账号和密码"
+        android:textColor="#666666"
+        android:textSize="10dp"/>
+
+</RelativeLayout>

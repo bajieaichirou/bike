@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.qianying.bike.register.RegisterMainActivity">
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/colorAccent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_below="@+id/titlebar"
+        android:background="@color/colorAccent">
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_tel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_deposit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_certification"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+        <com.qianying.bike.widget.StatusView
+            android:id="@+id/status_complete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.qianying.bike.widget.StatusView>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/include_register_certification"
+        android:visibility="gone"/>
+
+
+    <include
+        layout="@layout/include_register_deposit"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/ll_success"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:src="@mipmap/correct"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="恭喜您注册成功"
+            android:textColor="@color/orange"
+            android:textSize="14dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="@color/orange"
+                android:textSize="11dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="秒后跳到首页"
+                android:textColor="@color/text"
+                android:textSize="11dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

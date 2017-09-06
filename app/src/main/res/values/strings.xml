@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">小樱单车</string>
+
+    <string name="distance_bike">累计骑行(公里)</string>
+    <string name="tanpailiang">节约碳排量(千克)</string>
+    <string name="sport_honor">运动成就(大卡)</string>
+    <string name="mine_wallet">我的钱包</string>
+    <string name="mine_favourable">我的优惠</string>
+    <string name="mine_travel">我的行程</string>
+    <string name="mine_message">我的消息</string>
+    <string name="invite_friends">邀请好友</string>
+    <string name="user_book">用户指南</string>
+    <string name="setting_text">设置</string>
+    <string name="always_url_text">常用地址</string>
+    <string name="remove_cache">清理缓存</string>
+    <string name="about_us">关于我们</string>
+    <string name="exit_login">退出登录</string>
+    <string name="hot_question">热点问题</string>
+    <string name="all_question_text">全部问题</string>
+    <string name="launcher_company">上海千樱信息科技有限公司</string>
+    <string name="user_icon">头像</string>
+    <string name="user_tag">呢称</string>
+    <string name="user_name">姓名</string>
+    <string name="real_name_auth">实名认证</string>
+    <string name="phone_num">手机号码</string>
+    <string name="wechat_num">微信</string>
+    <string name="qq_num">QQ</string>
+    <string name="university_auth">校园认证</string>
+    <string name="invite_code">您的邀请码为:</string>
+    <string name="user_info">个人信息</string>
+    <string name="unlocking_bottom_text">解锁中。。。</string>
+    <string name="no_promotion">还没有优惠券</string>
+    <string name="favour_ime">立即兑换</string>
+    <string name="favourable_code">请输入优惠码</string>
+    <string name="detail">明细</string>
+    <string name="deposit_charge">充值金额</string>
+    <string name="charge">充值</string>
+    <string name="credit_score">我的信用分</string>
+    <string name="getVerification">获取验证码</string>
+    <string name="register_to_user_bike">完成注册即可使用车辆</string>
+    <string name="order_bike">预约用车</string>
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+</resources>

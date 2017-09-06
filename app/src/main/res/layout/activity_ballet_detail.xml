@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.qianying.bike.slidingMenu.ballet.BalletDetailActivity">
+
+    <com.qianying.bike.widget.CustomTitlebar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"/>
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recyclerview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <cn.shnow.pulltorefreshlib.PullToRefreshListView
+        android:id="@+id/re_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        ptr:ptrMode="both"
+        ptr:ptrAnimationStyle="flip"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:requiresFadingEdge="none"
+        ptr:ptrHeaderBackground="@android:color/transparent"
+        ptr:ptrHeaderTextColor="@color/info_value_color"
+        android:verticalSpacing="60px"
+        android:horizontalSpacing="30px"
+        android:layout_marginBottom="36px"
+        android:divider="@color/gray"
+        android:dividerHeight="40px"/>
+</LinearLayout>

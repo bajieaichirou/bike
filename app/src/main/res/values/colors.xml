@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#58b929</color>
+    <color name="green">#00ff00</color>
+    <color name="line_color_grey">#cccccc</color>
+    <color name="white">#ffffff</color>
+
+    <color name="borderColor">#cfd9d9</color>
+    <color name="textColor">#65bafc</color>
+    <color name="gary_bg">#F2F2F2</color>
+    <color name="gray">#F5F5F5</color>
+    <color name="text">#999999</color>
+    <color name="orange">#58b929</color>
+    <color name="blue">#4493FE</color>
+    <color name="content">#333333</color>
+    <color name="btn_bg">#eeeeee</color>
+    <color name="black">#000000</color>
+    <color name="black_40_percent">#00000000</color>
+    <color name="gray_btn">#DDDDDD</color>
+    <color name="gray_text">#A7A7A7</color>
+    <color name="text2">#666666</color>
+    <color name="info_value_color">#a5a5a5</color>
+
+    <color name="chart_value_1">#2ea7e0</color>
+    <color name="chart_value_2">#e8482e</color>
+    <color name="chart_value_3">#8fc026</color>
+    <color name="chart_value_4">#B5CC84</color>
+
+    <color name="default_back_color">@android:color/transparent</color>
+    <color name="default_back_stroke_color">#f0f0f0</color>
+    <color name="default_chart_value_color">#ff3d00</color>
+</resources>

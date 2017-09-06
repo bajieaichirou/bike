@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <com.uuzuche.lib_zxing.view.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <FrameLayout
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:background="#58b929"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:padding="15dp"
+            android:id="@+id/comm_back_arrow"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/arrow_left" />
+
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/comm_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="扫码用车"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <TextView
+        android:drawableTop="@drawable/input_hand"
+        android:drawablePadding="15dp"
+        android:id="@+id/enter_password"
+        android:layout_gravity="bottom"
+        android:text="请输入编号解锁"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:drawableTop="@drawable/flashlight"
+        android:drawablePadding="15dp"
+        android:id="@+id/light_switch"
+        android:text="手电筒"
+        android:layout_marginRight="80dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>

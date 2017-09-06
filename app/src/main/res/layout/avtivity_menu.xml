@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/gary_bg">
+
+    <com.qianying.bike.widget.MyScrollView
+        android:id="@+id/mine_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/head_layout"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="#aaa">
+
+                <FrameLayout
+                    android:id="@+id/user_icon_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/user_icon"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        fresco:placeholderImage="@drawable/black_round_shape"
+                        fresco:roundAsCircle="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:src="@mipmap/ziliaoxg" />
+                </FrameLayout>
+
+
+                <TextView
+                    android:id="@+id/user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_icon_layout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_18"
+                    android:gravity="center"
+                    android:text="小樱单车"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_id"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/saomiao">
+                    <TextView
+                        android:id="@+id/user_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="信用积分   100"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/have_not_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/login_mine_message_items_layout" />
+
+        </LinearLayout>
+    </com.qianying.bike.widget.MyScrollView>
+
+    <FrameLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/transparent">
+
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="个人中心"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_18"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@mipmap/arrow_left" />
+
+    </FrameLayout>
+
+</FrameLayout>

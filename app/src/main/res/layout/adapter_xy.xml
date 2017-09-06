@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/xy_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违规停放单车"
+            android:layout_marginLeft="20dp"
+            android:textSize="12sp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/xy_content"
+            android:id="@+id/xy_date"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017-12-12 12:00:00"
+            android:textSize="12sp"
+            android:textColor="@color/gray_text"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/xy_score"
+            android:id="@+id/xy_xy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信用分"
+            android:textSize="12sp"
+            android:textColor="@color/gray_text"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/xy_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-12"
+            android:textSize="12sp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/gray_text"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
