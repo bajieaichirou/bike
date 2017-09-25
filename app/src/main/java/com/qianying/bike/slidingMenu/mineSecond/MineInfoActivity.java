@@ -17,6 +17,7 @@ import com.qianying.bike.GHPhoneActivity;
 import com.qianying.bike.R;
 import com.qianying.bike.XGNCActivity;
 import com.qianying.bike.base.BaseActivity;
+import com.qianying.bike.slidingMenu.VerifyActivity;
 import com.qianying.bike.util.Utils;
 
 import org.xutils.view.annotation.Event;
@@ -54,6 +55,8 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
                 startActivity(new Intent(MineInfoActivity.this, XGNCActivity.class));
                 break;
             case R.id.real_name_auth_layout://实名认证
+
+                        startActivity(new Intent(getBaseContext(),VerifyActivity.class));
                 break;
             case R.id.phone_num_layout://修改手机号
                 startActivity(new Intent(MineInfoActivity.this, GHPhoneActivity.class));

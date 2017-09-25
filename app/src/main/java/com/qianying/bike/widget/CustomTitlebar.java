@@ -69,6 +69,7 @@ public class CustomTitlebar extends RelativeLayout {
         titleRightMargin = a.getDimensionPixelSize(R.styleable.CustomTitlebar_TitleRightMargin, LocalDisplay.dp2px(44));
         a.recycle();
         ininTitleBar(context);
+        setTitleColor(R.color.white);
     }
 
     private void ininTitleBar(Context context) {

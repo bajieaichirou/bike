@@ -29,13 +29,11 @@ public abstract class MyCallBack<ResultType> implements Callback.ProgressCallbac
 
     @Override
     public void onSuccess(ResultType resultType) {
-        Log.i("_____", FormatUtil.formatJson(resultType.toString()));
         NetEntity entity = JsonUtil.jsonToEntity(resultType.toString(), NetEntity.class);
         if ("0".equals(entity.getErrno())) {
             onSuccess(entity);
         } else {
-
-            onFailure(entity.getErrno());
+            onFailure(entity.getErrno()+":"+entity.getErrmsg());
         }
 
     }

@@ -93,14 +93,14 @@ public enum AliPayUtils {
 
             @Override
             public void run() {
-                PayTask alipay = new PayTask(activity);
-                Map<String, String> result = alipay.payV2(orderInfo, true);
-                Log.i("msp", result.toString());
-
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
+//                PayTask alipay = new PayTask(activity);
+//                Map<String, String> result = alipay.pay(orderInfo, true);
+//                Log.i("msp", result.toString());
+//
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
             }
         };
 
@@ -122,12 +122,12 @@ public enum AliPayUtils {
                 // 构造AuthTask 对象
                 AuthTask authTask = new AuthTask(activity);
                 // 调用授权接口，获取授权结果
-                Map<String, String> result = authTask.authV2(authInfo, true);
-
-                Message msg = new Message();
-                msg.what = SDK_AUTH_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
+//                Map<String, String> result = authTask.authV2(authInfo, true);
+//
+//                Message msg = new Message();
+//                msg.what = SDK_AUTH_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
             }
         };
 

@@ -40,7 +40,7 @@ public class TokenInfo {
     private static TokenInfo tokenInfo;
     public static TokenInfo newInstance(){
         if(tokenInfo==null){
-            tokenInfo = new TokenInfo();
+            tokenInfo = getTokenInfo();
         }
         return tokenInfo;
     }
@@ -64,5 +64,22 @@ public class TokenInfo {
             editor.putString(key, JsonUtil.entityToJson(t));
         }
         editor.commit();
+    }
+
+    public static TokenInfo getTokenInfo() {
+        SharedPreferences preferences = MyApp.getApplication().getSharedPreferences(TokenInfo.class.getName(), Context.MODE_PRIVATE);
+        String sdefault = preferences.getString(DEFAULT,"");
+        TokenInfo obj = JsonUtil.jsonToEntity(sdefault,TokenInfo.class);
+        if(tokenInfo==null){
+            if(obj==null){
+                return new TokenInfo();
+            }else if(obj.getAccess_token()!=null&&!obj.getAccess_token().equals("")){
+                return obj;
+            }else{
+                return null;
+            }
+        }else{
+            return tokenInfo;
+        }
     }
 }

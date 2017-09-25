@@ -1,11 +1,13 @@
 package com.qianying.bike.register;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,14 +17,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps.model.Marker;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.qianying.bike.MainActivity;
+import com.qianying.bike.MyApp;
 import com.qianying.bike.O;
 import com.qianying.bike.R;
 import com.qianying.bike.base.BaseActivity;
+import com.qianying.bike.comm.H;
+import com.qianying.bike.model.AuthInfo;
 import com.qianying.bike.model.NetEntity;
 import com.qianying.bike.model.RegInfo;
 import com.qianying.bike.model.TokenInfo;
+import com.qianying.bike.model.UserInfo;
 import com.qianying.bike.model.UsersInfo;
+import com.qianying.bike.util.JsonUtil;
+import com.qianying.bike.util.MD5Util;
 import com.qianying.bike.util.SPUtil;
 import com.qianying.bike.util.SPUtils;
 import com.qianying.bike.util.SPrefUtil;
@@ -34,6 +50,7 @@ import com.qianying.bike.xutils3.X;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,7 +83,10 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
         Intent intent = new Intent(context, EnsureTelphoneActivity.class);
         context.startActivity(intent);
     }
-
+    public static void start(Activity context, int requestcode) {
+        Intent intent = new Intent(context, EnsureTelphoneActivity.class);
+        context.startActivityForResult(intent,requestcode);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,8 +154,127 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
         Matcher m = p.matcher(mobiles);
         return m.matches();
     }
+    public void getRegInfo(Context ctx) {
+        String imei = null;
+        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+        //Get IMEI Number of Phone
+        imei = tm.getDeviceId();
+        String mdImei = MD5Util.encrypt(imei);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("imei", imei + "");
+        map.put("code", mdImei);
+
+        AndroidNetworking.post(H.HOST + H.authed)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(NetEntity entity) {
+                        // do anything with response
+
+                        RegInfo.setRegInfo(entity.toObj(RegInfo.class));
+
+                        getAuthInfo();
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        // handle error
+                    }
+                });
 
 
+    }
+
+
+    /*获取授权接口*/
+    public void getAuthInfo() {
+        RegInfo regInfo = RegInfo.getRegInfo();
+        HashMap<String, Object> map = new HashMap<>();
+        String client_id = regInfo.getApp_key();
+        String state = regInfo.getSeed_secret();
+        String url = regInfo.getAuthorize_url();
+        map.put("client_id", client_id);
+        map.put("state", state);
+        map.put("response_type", "code");
+        AndroidNetworking.post(url)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(NetEntity entity) {
+                        // do anything with response
+
+
+                        Log.i("________++___", entity.getStatus());
+                        AuthInfo.setAuthInfo(entity.toObj(AuthInfo.class));
+//                AuthInfo.setAuthInfo(authInfo);
+                        getTokenInfo();
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        // handle error
+                    }
+                });
+
+
+    }
+
+
+    //获取Access_token
+
+    public void getTokenInfo() {
+        RegInfo regInfo = RegInfo.getRegInfo();
+        HashMap<String, Object> map = new HashMap<>();
+        String url = regInfo.getToken_url();
+        final String client_id = regInfo.getApp_key();
+        String client_secret = regInfo.getApp_secret();
+        String grant_type = "authorization_code";
+        AuthInfo authInfo = AuthInfo.getAuthInfo();
+        String code = authInfo.getAuthorize_code();
+        final String state = regInfo.getSeed_secret();
+        map.put("client_id", client_id);
+        map.put("grant_type", grant_type);
+        map.put("client_secret", client_secret);
+        map.put("code", code);
+        map.put("state", state);
+
+        AndroidNetworking.post(url)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(NetEntity entity) {
+                        // do anything with response
+
+
+                        Log.i("______!!", entity.getStatus());
+                        TokenInfo.setTokenInfo(entity.toObj(TokenInfo.class));
+                        //获取用户信息
+                        if(step==1) {
+                            sendSmsCode(telphone.getText().toString());
+                        }else{
+                            login(telphone.getText().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        // handle error
+                    }
+                });
+
+    }
+
+    int step = 0;
     private void sendSmsCode(String phoneNum) {
         if (!isMobileNum(phoneNum)) {
             Toast.makeText(mContext, "无效的手机号码", Toast.LENGTH_LONG).show();
@@ -145,7 +284,15 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
         }
 
         telNumber = phoneNum;
+
         client_id = regInfo.getApp_key();
+        if(client_id==null){
+            step = 1;
+            RegInfo regInfo = RegInfo.getRegInfo();
+            TokenInfo tokenInfo = TokenInfo.getTokenInfo();
+            String client_id = regInfo.getApp_key();
+//            getRegInfo(this);
+        }
         state = regInfo.getSeed_secret();
         url = regInfo.getSource_url();
         access_token = tokenInfo.getAccess_token();
@@ -164,13 +311,13 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
         X.Post(url, json, new MyCallBack<String>() {
             @Override
             protected void onFailure(String message) {
-                Log.i("________()____", message);
+                Toast.makeText(EnsureTelphoneActivity.this,message,Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onSuccess(NetEntity entity) {
+                SPUtils.put(EnsureTelphoneActivity.this, MainActivity.TAG, telNumber);
 
-                Log.i("________", entity.getErrmsg());
             }
         });
     }
@@ -180,6 +327,18 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
      */
     private void login(final String phoneNum) {
 
+        RegInfo regInfo = RegInfo.getRegInfo();
+        TokenInfo tokenInfo = TokenInfo.getTokenInfo();
+        String client_id = regInfo.getApp_key();
+        if(client_id==null){
+            step = 2;
+
+//            getRegInfo(this);
+            return;
+        }
+        String state = regInfo.getSeed_secret();
+        String url = regInfo.getSource_url();
+        String access_token = tokenInfo.getAccess_token();
         JSONObject json = new JSONObject();
         try {
             json.put("client_id", client_id);
@@ -195,18 +354,21 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
         X.Post(url, json, new MyCallBack<String>() {
             @Override
             protected void onFailure(String message) {
-
+                Toast.makeText(EnsureTelphoneActivity.this,message,Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onSuccess(NetEntity entity) {
-                Message msg = new Message();
-                msg.what = 103;
-                handler.sendMessage(msg);
-                UsersInfo user = UsersInfo.newInstance();
-                user.setMobile(phoneNum);
-                SPUtils.put(EnsureTelphoneActivity.this, MainActivity.TAG, phoneNum);
-                UsersInfo.save(user, UsersInfo.class);
+                if (entity.getErrno().equals("0")) {
+                    UsersInfo user = JsonUtil.jsonToEntity(entity.getData().toString(), UsersInfo.class);
+                    SPUtils.put(EnsureTelphoneActivity.this, MainActivity.TAG, user.getMobile());
+                    UsersInfo.save(user, UsersInfo.class);
+
+                    finish();
+
+                } else {
+                    Toast.makeText(EnsureTelphoneActivity.this, entity.getErrmsg(), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

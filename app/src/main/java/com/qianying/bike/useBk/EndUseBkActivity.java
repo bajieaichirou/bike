@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.qianying.bike.R;
 import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.http.HttpResponse;
-import com.qianying.bike.http.MyHttpUtils;
 import com.qianying.bike.util.C;
 
 /**
@@ -100,17 +99,17 @@ public class EndUseBkActivity extends BaseActivity implements View.OnClickListen
     private void checkout(String bikeId) {
         if (TextUtils.isEmpty(bikeId))
             return;
-        MyHttpUtils.put(C.Urls.getCheckOutUrl(bikeId), null, new HttpResponse() {
-            @Override
-            public void onGetData(String data) {
-                super.onGetData(data);
-            }
-
-            @Override
-            public void onError(String error) {
-                super.onError(error);
-            }
-        });
+//        MyHttpUtils.put(C.Urls.getCheckOutUrl(bikeId), null, new HttpResponse() {
+//            @Override
+//            public void onGetData(String data) {
+//                super.onGetData(data);
+//            }
+//
+//            @Override
+//            public void onError(String error) {
+//                super.onError(error);
+//            }
+//        });
     }
 
 }

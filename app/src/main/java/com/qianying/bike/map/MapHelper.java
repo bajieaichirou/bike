@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -26,14 +28,27 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.offlinemap.OfflineMapManager;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.qianying.bike.MainActivity;
 import com.qianying.bike.MyApp;
 import com.qianying.bike.R;
+import com.qianying.bike.comm.H;
+import com.qianying.bike.model.AuthInfo;
 import com.qianying.bike.model.BikeInfo;
 import com.qianying.bike.model.MapLocation;
 import com.qianying.bike.model.NetEntity;
 import com.qianying.bike.model.RegInfo;
 import com.qianying.bike.model.TokenInfo;
+import com.qianying.bike.model.UsersInfo;
 import com.qianying.bike.util.LocationHelper;
+import com.qianying.bike.util.MD5Util;
+import com.qianying.bike.util.PreUtils;
 import com.qianying.bike.xutils3.MyCallBack;
 import com.qianying.bike.xutils3.X;
 
@@ -41,6 +56,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -139,8 +155,11 @@ public class MapHelper implements LocationSource,
     }
 
 
+    AMapLocation aMapLocation;
+
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
+        this.aMapLocation = aMapLocation;
         if (mListener != null && aMapLocation != null) {
             if (aMapLocation != null
                     && aMapLocation.getErrorCode() == 0) {
@@ -149,6 +168,14 @@ public class MapHelper implements LocationSource,
 
                 if (isMoveToCenter) {
                     //定位后添加附近的车辆  每次重新定位就会重新添加
+                    if(!PreUtils.getBool(PreUtils.IS_FIRST_LOGIN, true)){
+//                        getRegInfo(MyApp.getApplication());
+
+                        RegInfo regInfo = RegInfo.getRegInfo();
+                        TokenInfo tokenInfo = TokenInfo.getTokenInfo();
+                        String client_id = regInfo.getApp_key();
+
+                    }
                     getBikes(aMapLocation);
 //                    getBikess(aMapLocation);
                     aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
@@ -179,6 +206,123 @@ public class MapHelper implements LocationSource,
 //                MyApp.getInstance().Toast(errText);
             }
         }
+    }
+
+    public void getRegInfo(Context ctx) {
+        String imei = null;
+        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+        //Get IMEI Number of Phone
+        imei = tm.getDeviceId();
+        String mdImei = MD5Util.encrypt(imei);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("imei", imei + "");
+        map.put("code", mdImei);
+
+        AndroidNetworking.post(H.HOST + H.authed)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(NetEntity entity) {
+                        // do anything with response
+
+                        RegInfo.setRegInfo(entity.toObj(RegInfo.class));
+
+                        getAuthInfo();
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        // handle error
+                    }
+                });
+
+
+    }
+
+
+    /*获取授权接口*/
+    public void getAuthInfo() {
+        RegInfo regInfo = RegInfo.getRegInfo();
+        HashMap<String, Object> map = new HashMap<>();
+        String client_id = regInfo.getApp_key();
+        String state = regInfo.getSeed_secret();
+        String url = regInfo.getAuthorize_url();
+        map.put("client_id", client_id);
+        map.put("state", state);
+        map.put("response_type", "code");
+        AndroidNetworking.post(url)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(NetEntity entity) {
+                        // do anything with response
+
+
+                        Log.i("________++___", entity.getStatus());
+                        AuthInfo.setAuthInfo(entity.toObj(AuthInfo.class));
+//                AuthInfo.setAuthInfo(authInfo);
+                        getTokenInfo();
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        // handle error
+                    }
+                });
+
+
+    }
+
+
+    //获取Access_token
+
+    public void getTokenInfo() {
+        RegInfo regInfo = RegInfo.getRegInfo();
+        HashMap<String, Object> map = new HashMap<>();
+        String url = regInfo.getToken_url();
+        final String client_id = regInfo.getApp_key();
+        String client_secret = regInfo.getApp_secret();
+        String grant_type = "authorization_code";
+        AuthInfo authInfo = AuthInfo.getAuthInfo();
+        String code = authInfo.getAuthorize_code();
+        final String state = regInfo.getSeed_secret();
+        map.put("client_id", client_id);
+        map.put("grant_type", grant_type);
+        map.put("client_secret", client_secret);
+        map.put("code", code);
+        map.put("state", state);
+
+        AndroidNetworking.post(url)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(NetEntity entity) {
+                        // do anything with response
+
+
+                        Log.i("______!!", entity.getStatus());
+                        TokenInfo.setTokenInfo(entity.toObj(TokenInfo.class));
+                        //获取用户信息
+
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        // handle error
+                    }
+                });
+
     }
 
     @Override
@@ -235,6 +379,8 @@ public class MapHelper implements LocationSource,
         Marker marker = aMap.addMarker(options);
         markers.add(marker);
         marker.showInfoWindow();
+
+
     }
 
 
@@ -245,63 +391,71 @@ public class MapHelper implements LocationSource,
      */
     private void getBikes(final AMapLocation aMapLocation) {
 
-        regInfo = RegInfo.newInstance();
-        tokenInfo = TokenInfo.newInstance();
-        client_id = regInfo.getApp_key();
-        state = regInfo.getSeed_secret();
-        url = regInfo.getSource_url();
-        access_token = tokenInfo.getAccess_token();
+        RegInfo regInfo = RegInfo.getRegInfo();
+        TokenInfo tokenInfo = TokenInfo.newInstance();
+        String client_id = regInfo.getApp_key();
+        String state = regInfo.getSeed_secret();
+        String url = regInfo.getSource_url();
+        String access_token = tokenInfo.getAccess_token();
 
-        JSONObject json = new JSONObject();
-        try {
-            json.put("client_id",client_id);
-            json.put("state",state);
-            json.put("access_token",access_token);
-            json.put("action","searchBikes");
-            json.put("lat",String.valueOf(aMapLocation.getLatitude()));
-            json.put("lng",String.valueOf(aMapLocation.getLongitude()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        HashMap map = new HashMap();
+        map.put("client_id", client_id);
+        map.put("state", state);
+        map.put("access_token", access_token);
+        map.put("action", "searchBikes");
+        map.put("lat", String.valueOf(aMapLocation.getLatitude()));
+        map.put("lng", String.valueOf(aMapLocation.getLongitude()));
 
-        X.Post(url, json, new MyCallBack<String>() {
-            @Override
-            protected void onFailure(String message) {
 
-            }
+        AndroidNetworking.post(url)
+                .addBodyParameter(map)
+                .setPriority(Priority.MEDIUM)
+                .build().
+                getAsParsed(new TypeToken<NetEntity>() {
+                }, new ParsedRequestListener<NetEntity>() {
+                    @Override
+                    public void onResponse(final NetEntity entity) {
+                        // do anything with response
 
-            @Override
-            public void onSuccess(NetEntity entity) {
-                List<BikeInfo> list_bikeInfo = entity.toList(BikeInfo.class);
-                for (Marker marker : markers) {
-                    marker.remove();
-                }
-                Message message = new Message();
-                message.what=101;
-                handler.sendMessage(message);
+                        final JsonArray list_bikeInfo = (JsonArray) entity.getData().getAsJsonObject().get("bikes");
+                        for (Marker marker : markers) {
+                            marker.remove();
+                        }
+//                        new Handler(Looper.getMainLooper(), new Handler.Callback() {
+//                            @Override
+//                            public boolean handleMessage(Message message) {
+//
+//                                return false;
+//                            }
+//                        });
+                                if (list_bikeInfo != null && list_bikeInfo.size() > 0) {
+                                    for (int i = 0; i < list_bikeInfo.size(); i++) {
+                                        JsonObject jo = (JsonObject) list_bikeInfo.get(i);
 
-                if (list_bikeInfo != null && list_bikeInfo.size() > 0) {
-                    for (BikeInfo info : list_bikeInfo) {
-                        addMarker(Double.valueOf(info.getLat()), Double.valueOf(info.getLng()));
+                                        addMarker(jo.get("lat").getAsDouble(), jo.get("lng").getAsDouble());
+
+                                    }
+                                }
+                                MyApp.isLogin = !entity.getData().getAsJsonObject().get("islogin").toString().equals("0");
+
                     }
-                }
 
+                    @Override
+                    public void onError(ANError anError) {
 
-            }
-        });
+                    }
+                });
 
 
     }
 
 
-
-
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 101:
-                    Log.i("____****","lng______");
+                    Log.i("____****", "lng______");
                     break;
             }
         }

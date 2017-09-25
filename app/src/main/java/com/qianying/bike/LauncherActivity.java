@@ -54,7 +54,7 @@ public class LauncherActivity extends BaseActivity {
         //Get IMEI Number of Phone
         imei = tm.getDeviceId();
         Log.i("___________+++___", imei + "");
-        getRegInfo(imei);
+//        getRegInfo(imei);
     }
 
     private final Handler mHandler = new Handler() {
@@ -69,18 +69,10 @@ public class LauncherActivity extends BaseActivity {
                         startActivity(new Intent(LauncherActivity.this, MainActivity.class));
                     }
 
-                    doPermissionGrantedStuffs();
+//                    doPermissionGrantedStuffs();
                     finish();
                     break;
-                case 1:
-                    RegInfo.setRegInfo(regInfo);
-                    break;
-                case 2:
-                    AuthInfo.setAuthInfo(authInfo);
-                    break;
-                case 3:
-                    TokenInfo.setTokenInfo(tokenInfo);
-                    break;
+
             }
         }
     };
@@ -152,104 +144,5 @@ public class LauncherActivity extends BaseActivity {
 
     }
 
- /*
-     * 获取register接口
-     */
-
-    private void getRegInfo(String imei) {
-        mdImei = MD5Util.encrypt(imei);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("imei", imei + "");
-        map.put("code", mdImei);
-
-        X.Post(H.HOST + H.authed, map, new MyCallBack<String>() {
-
-
-            @Override
-            protected void onFailure(String message) {
-                Log.i("_______++", message + "");
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                Log.i("________", entity.getStatus() + "__________" + entity.getErrno() + "");
-                regInfo = entity.toObj(RegInfo.class);
-//                RegInfo.setRegInfo(regInfo);//保存对象
-                Message msg = new Message();
-                msg.what = 1;
-                mHandler.sendMessage(msg);
-
-                getAuthInfo();
-
-            }
-        });
-    }
-
-
-    /*获取授权接口*/
-    private void getAuthInfo() {
-        Map<String, Object> map = new HashMap<>();
-        String client_id = regInfo.getApp_key();
-        String state = regInfo.getSeed_secret();
-        String url = regInfo.getAuthorize_url();
-        map.put("client_id", client_id);
-        map.put("state", state);
-        map.put("response_type", "code");
-        X.Post(url, map, new MyCallBack<String>() {
-            @Override
-            protected void onFailure(String message) {
-                Log.i("_______++", message + "");
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                Log.i("________++___",entity.getStatus());
-                authInfo = entity.toObj(AuthInfo.class);
-//                AuthInfo.setAuthInfo(authInfo);
-                Message msg = new Message();
-                msg.what = 2;
-                mHandler.sendMessage(msg);
-                getTokenInfo();
-            }
-        });
-
-    }
-
-
-
-    //获取Access_token
-
-    private void getTokenInfo(){
-        Map<String, Object> map = new HashMap<>();
-        String url = regInfo.getToken_url();
-        String client_id = regInfo.getApp_key();
-        String client_secret = regInfo.getApp_secret();
-        String grant_type = "authorization_code";
-        String code = authInfo.getAuthorize_code();
-        String state = regInfo.getSeed_secret();
-        map.put("client_id",client_id);
-        map.put("grant_type",grant_type);
-        map.put("client_secret",client_secret);
-        map.put("code",code);
-        map.put("state",state);
-
-        X.Post(url, map, new MyCallBack<String>() {
-            @Override
-            protected void onFailure(String message) {
-                Log.i("________**",message+"");
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                Log.i("______!!",entity.getStatus());
-                tokenInfo = entity.toObj(TokenInfo.class);
-//                TokenInfo.setTokenInfo(tokenInfo);
-                Message msg = new Message();
-                msg.what = 3;
-                mHandler.sendMessage(msg);
-            }
-        });
-    }
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,7 +8,7 @@
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/orange"/>
+        android:background="@color/orange" />
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -27,7 +26,7 @@
             android:gravity="center"
             android:text="押金"
             android:textColor="@color/content"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +36,7 @@
             android:gravity="center"
             android:text="(可秒退)"
             android:textColor="@color/content"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/txt_deposit_count"
@@ -48,7 +47,7 @@
             android:layout_marginRight="19dp"
             android:text="199"
             android:textColor="@color/content"
-            android:textSize="30dp"/>
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,7 +56,7 @@
             android:layout_toLeftOf="@+id/txt_deposit_count"
             android:text="¥"
             android:textColor="@color/content"
-            android:textSize="15dp"/>
+            android:textSize="15dp" />
 
     </RelativeLayout>
 
@@ -74,51 +73,51 @@
             android:layout_height="30dp"
             android:layout_marginLeft="25dp"
             android:drawableLeft="@mipmap/wx_pay"
-            android:gravity="center"
             android:drawablePadding="10dp"
+            android:gravity="center"
             android:text="微信支付"
             android:textColor="@color/content"
-            android:textSize="13dp"/>
+            android:textSize="13dp" />
 
         <CheckBox
             android:id="@+id/checkbox_wx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100px"
+            android:layout_height="100px"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
-            android:button="@drawable/btn_check_bg"/>
+            android:button="@drawable/btn_check_bg" />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_alipay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_wx"
-        android:layout_marginTop="17dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="25dp"
-            android:drawableLeft="@mipmap/apliy_pay"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="支付宝支付"
-            android:textColor="@color/content"
-            android:textSize="13dp"/>
-
-        <CheckBox
-            android:id="@+id/checkbox_alipay"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_alipay"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="14dp"
-            android:button="@drawable/btn_check_bg"/>
+            android:layout_below="@+id/rl_wx"
+            android:layout_marginTop="17dp">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="25dp"
+                android:drawableLeft="@mipmap/apliy_pay"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="支付宝支付"
+                android:textColor="@color/content"
+                android:textSize="13dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_alipay"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="14dp"
+                android:button="@drawable/btn_check_bg" />
+
+        </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_charge"
@@ -132,7 +131,7 @@
         android:gravity="center"
         android:text="@string/charge"
         android:textColor="@color/white"
-        android:textSize="16dp"/>
+        android:textSize="16dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -144,6 +143,6 @@
         android:gravity="center"
         android:text="小樱不会以任何形式要求您输入银行账号和密码"
         android:textColor="#666666"
-        android:textSize="10dp"/>
+        android:textSize="10dp" />
 
 </RelativeLayout>

@@ -147,12 +147,12 @@ public class AliPayUtil {
             @Override
             public void run() {
                 PayTask alipay = new PayTask(activity);
-                Map<String, String> result = alipay.payV2(orderInfo, true);
-                Log.i("msp", result.toString());
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
+//                Map<String, String> result = alipay.payV2(orderInfo, true);
+//                Log.i("msp", result.toString());
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
             }
         };
 

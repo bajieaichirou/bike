@@ -52,9 +52,27 @@ public class RegInfo {
     private static RegInfo regInfo;
     public static RegInfo newInstance(){
         if(regInfo==null){
-            regInfo = new RegInfo();
+            regInfo = getRegInfo();
         }
         return regInfo;
+    }
+
+    public static RegInfo getRegInfo() {
+        SharedPreferences preferences = MyApp.getApplication().getSharedPreferences(RegInfo.class.getName(), Context.MODE_PRIVATE);
+        String sdefault = preferences.getString(DEFAULT,"");
+        RegInfo obj = JsonUtil.jsonToEntity(sdefault,RegInfo.class);
+        if(regInfo==null){
+            if(obj==null){
+                return new RegInfo();
+            }else if(obj.getSeed_secret()!=null&&!obj.getSeed_secret().equals("")){
+                return obj;
+            }else{
+                return null;
+            }
+        }else{
+            return regInfo;
+        }
+
     }
 
     private static final String DEFAULT = "DEFAULT";

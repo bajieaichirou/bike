@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.qianying.bike.http.MyHttpUtils;
 import com.qianying.bike.jpush.JpushUtils;
 import com.qianying.bike.util.LocalDisplay;
 import com.qianying.bike.util.PreUtils;
@@ -31,26 +30,36 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
+
         Fresco.initialize(this);
         ZXingLibrary.initDisplayOpinion(this);
 
         //极光sdk初始化
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);
+        JPushInterface.initCrashHandler(this);
         JpushUtils.configJpushStyle(this);
         JShareInterface.init(this);
         JShareInterface.setDebugMode(true);
+//        JAnalyticsInterface.init(getApplication());
+//        JAnalyticsInterface.initCrashHandler(this);
+//        JAnalyticsInterface.setDebugMode(true);
         LocalDisplay.init(this);
+
+
+
 
         PreUtils.init(this);
         x.Ext.init(this); //初始化xUtils
         x.Ext.setDebug(true);//设置是否输出debug
 
 
-        MyHttpUtils.init(this);
+//        MyHttpUtils.init(this);
 
     }
 
+
+public static boolean isLogin;
 
     public static MyApp getInstance() {
         if (app == null)

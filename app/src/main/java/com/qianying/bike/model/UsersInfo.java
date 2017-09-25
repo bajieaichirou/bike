@@ -27,6 +27,15 @@ public class UsersInfo {
     private String truename;
     private String is_verified;
     private String is_paydeposit;
+    private String deposit;
+
+    public String getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(String deposit) {
+        this.deposit = deposit;
+    }
 
     public String getIs_paydeposit() {
         return is_paydeposit;

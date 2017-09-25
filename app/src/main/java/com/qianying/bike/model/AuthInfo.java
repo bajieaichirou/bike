@@ -14,6 +14,10 @@ public class AuthInfo {
     private String app_key;
     private String authorize_code;
 
+    public static AuthInfo getAuthInfo() {
+        return authInfo;
+    }
+
     public String getApp_key() {
         return app_key;
     }

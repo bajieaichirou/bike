@@ -62,7 +62,12 @@ public class CertificationActivity extends BaseActivity implements View.OnClickL
         regInfo = RegInfo.newInstance();
         tokenInfo = TokenInfo.newInstance();
         initViews();
+
+
+
     }
+
+
 
     /**
      * 实名认证接口

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.qianying.bike.R;
@@ -25,6 +26,7 @@ public class DepositActivity extends Activity implements View.OnClickListener {
     private CheckBox aliPay;
 
     private int changeCount = 100;
+    private String action;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, DepositActivity.class);
@@ -37,6 +39,24 @@ public class DepositActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_deposit);
 
         initViews();
+        findViewById(R.id.txt_charge).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RechargeActivity.recharge(DepositActivity.this,action,"2",changeCount+"");
+            }
+        });
+        findViewById(R.id.rl_alipay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aliPay.performClick();
+            }
+        });
+        findViewById(R.id.rl_wx).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                wxPay.performClick();
+            }
+        });
     }
 
     private void initViews() {
@@ -63,6 +83,30 @@ public class DepositActivity extends Activity implements View.OnClickListener {
         charge100.setOnClickListener(this);
         charge50.setOnClickListener(this);
         charge20.setOnClickListener(this);
+        aliPay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    wxPay.setChecked(false);
+                    wxPay.setEnabled(true);
+                    aliPay.setEnabled(false);
+                    action = "aliPay";
+                }
+
+            }
+        });
+        wxPay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    aliPay.setEnabled(true);
+                    aliPay.setChecked(false);
+                    wxPay.setEnabled(false);
+                    action = "wxPay";
+                }
+            }
+        });
+        aliPay.performClick();
     }
 
     @Override

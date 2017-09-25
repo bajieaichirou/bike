@@ -12,9 +12,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.qianying.bike.R;
 import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.http.HttpResponse;
-import com.qianying.bike.http.MyHttpUtils;
 import com.qianying.bike.model.User;
 import com.qianying.bike.model.UserInfo;
+import com.qianying.bike.model.UsersInfo;
 import com.qianying.bike.slidingMenu.mineSecond.CreditScoreActivity;
 import com.qianying.bike.slidingMenu.mineSecond.MineInfoActivity;
 import com.qianying.bike.util.CommUtil;
@@ -54,29 +54,38 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        MyHttpUtils.getUserInfo(new HttpResponse() {
-            @Override
-            public void onGetData(String data) {
-                super.onGetData(data);
-                UserInfo userInfo = CommUtil.getBean(data, UserInfo.class);
-                User user = UserHelper.getInstance().getUser();
-                if (userInfo != null && userInfo.getData() != null && userInfo.getData().getUser() != null) {
-                    user.setUid(userInfo.getData().getUser().getId());
-                    UserHelper.getInstance().setUser(user);
-                }
-//                ((TextView)findViewById(R.id.user_id)).setText(getResources().getString(R.string.app_name));
-            }
-
-            @Override
-            public void onError(String error) {
-                super.onError(error);
-            }
-
-            @Override
-            public void onErrorCode(int errorCode) {
-                super.onErrorCode(errorCode);
-            }
-        });
+//        MyHttpUtils.getUserInfo(new HttpResponse() {
+//            @Override
+//            public void onGetData(String data) {
+//                super.onGetData(data);
+//                UserInfo userInfo = CommUtil.getBean(data, UserInfo.class);
+//                User user = UserHelper.getInstance().getUser();
+//                if (userInfo != null && userInfo.getData() != null && userInfo.getData().getUser() != null) {
+//                    user.setUid(userInfo.getData().getUser().getId());
+//                    UserHelper.getInstance().setUser(user);
+//                }
+////                ((TextView)findViewById(R.id.user_id)).setText(getResources().getString(R.string.app_name));
+//            }
+//
+//            @Override
+//            public void onError(String error) {
+//                super.onError(error);
+//            }
+//
+//            @Override
+//            public void onErrorCode(int errorCode) {
+//                super.onErrorCode(errorCode);
+//            }
+//        });
+        UsersInfo info = UsersInfo.get(UsersInfo.class);
+        if(info!=null){
+        if (info.getTruename() != null && !info.getTruename().equals("")) {
+            ((TextView) findViewById(R.id.user_id)).setText(info.getTruename());
+        }
+        if (info.getMobile() != null && !info.getMobile().equals("")) {
+            ((TextView) findViewById(R.id.user_id)).setText(info.getMobile());
+        }
+    }
     }
 
     private void initView() {

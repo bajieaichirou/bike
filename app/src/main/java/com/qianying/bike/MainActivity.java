@@ -15,7 +15,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,7 +31,6 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.qianying.bike.base.BaseActivity;
-import com.qianying.bike.comm.H;
 import com.qianying.bike.customer.CustomerHelper;
 import com.qianying.bike.map.MapHelper;
 import com.qianying.bike.model.LocationBean;
@@ -45,12 +43,12 @@ import com.qianying.bike.model.UsersInfo;
 import com.qianying.bike.register.EnsureTelphoneActivity;
 import com.qianying.bike.search.SearchActivity;
 import com.qianying.bike.slidingMenu.MenuActivity;
+import com.qianying.bike.slidingMenu.VerifyActivity;
 import com.qianying.bike.slidingMenu.ballet.DepositActivity;
 import com.qianying.bike.slidingMenu.ballet.RechargeActivity;
-import com.qianying.bike.slidingMenu.mineSecond.MineInfoActivity;
 import com.qianying.bike.useBk.EnterCodeActivity;
+import com.qianying.bike.util.JsonUtil;
 import com.qianying.bike.util.LocationHelper;
-import com.qianying.bike.util.MD5Util;
 import com.qianying.bike.util.SPUtils;
 import com.qianying.bike.util.SPrefUtil;
 import com.qianying.bike.util.UserHelper;
@@ -59,17 +57,18 @@ import com.qianying.bike.xutils3.X;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMap.OnMapClickListener {
 
-
+    public static final int REQUEST_SCAN = 102;
     private static final int REQUEST_CODE = 101;
     public static final int SEARCH_LOCATION = 100;
+    public static final int REQUEST_SCAN_AFTER_LOGIN = 103;
+    public static final int REQUEST_SCAN_AFTER_VERIFY = 105;
+    public static final int REQUEST_SCAN_AFTER_RECHARGE = 106;
     private String imei; //获取机器唯一标识
     private String mdImei; //唯一标识加密
     private RegInfo regInfo;//Register对象
@@ -129,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    RegInfo.setRegInfo(regInfo);
+
                     break;
                 case 2:
                     AuthInfo.setAuthInfo(authInfo);
@@ -144,6 +143,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void initMap() {
         MapLocation mapLocation = LocationHelper.loadMapLocation(mContext);
+
     }
 
     private void initView() {
@@ -238,13 +238,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 //                startActivity(intent);
                 break;
             case R.id.search_bike_icon://扫描开锁
-                phone = (String) SPUtils.get(MainActivity.this, MainActivity.TAG, "");
-//                checkPromise(this);
-                if (!phone.isEmpty()) {
-                    checkPromise(this);
-                } else {
+                UsersInfo ui = UsersInfo.get(UsersInfo.class);
+                if (ui == null) {
                     EnsureTelphoneActivity.start(mContext);
+                    return;
                 }
+                userStatusAndOpen();
+
 
                 break;
             case R.id.reload_location://定位
@@ -260,7 +260,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 if (!phone.isEmpty()) {
                     startActivity(new Intent(MainActivity.this, MsgActivity.class));
                 } else {
-                    EnsureTelphoneActivity.start(mContext);
+                    EnsureTelphoneActivity.start(this, REQUEST_SCAN_AFTER_LOGIN);
                 }
                 break;
             case R.id.customer_icon://故障报修
@@ -287,6 +287,52 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 DepositActivity.start(mContext);
                 break;
         }
+    }
+
+    private void userStatusAndOpen() {
+        regInfo = RegInfo.getRegInfo();
+        tokenInfo = TokenInfo.getTokenInfo();
+        String client_id = regInfo.getApp_key();
+        String state = regInfo.getSeed_secret();
+        String url = regInfo.getSource_url();
+        String access_token = tokenInfo.getAccess_token();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("client_id", client_id);
+            json.put("state", state);
+            json.put("access_token", access_token);
+            json.put("action", "userStatus");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        X.Post(url, json, new MyCallBack<String>() {
+            @Override
+            protected void onFailure(String message) {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(NetEntity entity) {
+                Toast.makeText(MainActivity.this,entity.getData().toString(),Toast.LENGTH_LONG).show();
+                if (entity.getStatus().equals("true") && entity.getErrno().equals("0")) {
+                    UsersInfo user = JsonUtil.jsonToEntity(entity.getData().toString(), UsersInfo.class);
+                    SPUtils.put(MainActivity.this, MainActivity.TAG, user.getMobile());
+                    UsersInfo.save(user, UsersInfo.class);
+                    UsersInfo ui = UsersInfo.get(UsersInfo.class);
+                    phone = ui.getMobile();
+
+//                checkPromise(this);
+                    if (phone != null && !phone.isEmpty()) {
+
+                        checkPromise(MainActivity.this);
+                    } else {
+                        EnsureTelphoneActivity.start(mContext);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -358,45 +404,60 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(data!=null&&data.getStringExtra("callback")!=null) {
+            if (requestCode == REQUEST_SCAN_AFTER_RECHARGE) {
+                userStatusAndOpen();
+            } else if (requestCode == REQUEST_SCAN_AFTER_VERIFY) {
+                checkPromise(this);
+            } else if (requestCode == REQUEST_SCAN_AFTER_LOGIN) {
+                userStatusAndOpen();
+            } else if (requestCode == REQUEST_SCAN) {
+                goToCaptureActivity();
+            }
+        }else
         /**
          * 处理二维码扫描结果
          */
-        if (requestCode == REQUEST_CODE) {
+            if (requestCode == REQUEST_CODE) {
 
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
+                if (null != data) {
+                    Bundle bundle = data.getExtras();
+                    if (bundle == null) {
+                        return;
+                    }
+                    if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                        String result = bundle.getString(CodeUtils.RESULT_STRING);
+                        Toast.makeText(this, "车子编号为：" + result, Toast.LENGTH_LONG).show();
+                        Message msg = new Message();
+                        msg.what = 11;
+                        msg.obj = result;
+
+                        //处理扫描结果（在界面上显示）
+                        mHandler.sendMessage(msg);
+
+                    } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                    }
                 }
-                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Toast.makeText(this, "车子编号为：" + result, Toast.LENGTH_LONG).show();
-                    Message msg = new Message();
-                    msg.what = 11;
-                    msg.obj = result;
-
-                    //处理扫描结果（在界面上显示）
-                    mHandler.sendMessage(msg);
-
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
-                }
+            } else if (requestCode == SEARCH_LOCATION && resultCode == RESULT_OK) {
+                LocationBean location = (LocationBean) data.getBundleExtra("location").getSerializable("location");
+                if (location != null)
+                    mapView.getMap().moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLat(), location.getLon())));
             }
-        } else if (requestCode == SEARCH_LOCATION && resultCode == RESULT_OK) {
-            LocationBean location = (LocationBean) data.getBundleExtra("location").getSerializable("location");
-            if (location != null)
-                mapView.getMap().moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLat(), location.getLon())));
-        }
     }
 
     private void checkPermissionStep() {
         UsersInfo info = UsersInfo.get(UsersInfo.class);
-        if (info.getIs_verified()==null||info.getIs_verified().equals("0")) {
-            startActivity(new Intent(getBaseContext(), MineInfoActivity.class));
+        if (info == null) {
+            startActivity(new Intent(getBaseContext(), EnsureTelphoneActivity.class));
             return;
         }
-        if (info.getIs_paydeposit()==null||info.getIs_paydeposit().equals("0")) {
-            startActivity(new Intent(getBaseContext(), RechargeActivity.class));
+        if (info.getIs_paydeposit() == null || info.getIs_paydeposit().equals("0")) {
+            startActivityForResult(new Intent(getBaseContext(), RechargeActivity.class), REQUEST_SCAN_AFTER_RECHARGE);
+            return;
+        }
+        if (info.getIs_verified() == null || info.getIs_verified().equals("0")) {
+            startActivityForResult(new Intent(getBaseContext(), VerifyActivity.class), REQUEST_SCAN_AFTER_VERIFY);
             return;
         }
         goToCaptureActivity();
@@ -539,168 +600,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     };
 
 
-
     /*
      * 获取register接口
      */
-
-    private void getRegInfo(String imei) {
-        mdImei = MD5Util.encrypt(imei);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("imei", imei + "");
-        map.put("code", mdImei);
-
-        X.Post(H.HOST + H.authed, map, new MyCallBack<String>() {
-
-
-            @Override
-            protected void onFailure(String message) {
-                Log.i("_______++", message + "");
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                Log.i("________", entity.getStatus() + "__________" + entity.getErrno() + "");
-                regInfo = entity.toObj(RegInfo.class);
-//                RegInfo.setRegInfo(regInfo);//保存对象
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
-
-                getAuthInfo();
-
-            }
-        });
-    }
-
-    //    public void loadIMEI() {
-//        // Check if the READ_PHONE_STATE permission is already available.
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // READ_PHONE_STATE permission has not been granted.
-//            requestReadPhoneStatePermission();
-//
-//        } else {
-//            // READ_PHONE_STATE permission is already been granted.
-//            doPermissionGrantedStuffs();
-//        }
-//    }
-//
-//    private void requestReadPhoneStatePermission() {
-//        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
-//
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
-//        } else {
-//            // READ_PHONE_STATE permission has not been granted yet. Request it directly.
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 0);
-//        }
-//    }
-//
-//
     public void doPermissionGrantedStuffs() {
         //Have an  object of TelephonyManager
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        //Get IMEI Number of Phone
-        imei = tm.getDeviceId();
+
         Log.i("___________+++___", imei + "");
-        getRegInfo(imei);
     }
 
 
-    /*获取授权接口*/
-    private void getAuthInfo() {
-        Map<String, Object> map = new HashMap<>();
-        String client_id = regInfo.getApp_key();
-        String state = regInfo.getSeed_secret();
-        String url = regInfo.getAuthorize_url();
-        map.put("client_id", client_id);
-        map.put("state", state);
-        map.put("response_type", "code");
-        X.Post(url, map, new MyCallBack<String>() {
-            @Override
-            protected void onFailure(String message) {
-                Log.i("_______++", message + "");
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                Log.i("________++___", entity.getStatus());
-                authInfo = entity.toObj(AuthInfo.class);
-//                AuthInfo.setAuthInfo(authInfo);
-                Message msg = new Message();
-                msg.what = 2;
-                handler.sendMessage(msg);
-                getTokenInfo();
-            }
-        });
-
-    }
-
-
-    //获取Access_token
-
-    private void getTokenInfo() {
-        Map<String, Object> map = new HashMap<>();
-        String url = regInfo.getToken_url();
-        final String client_id = regInfo.getApp_key();
-        String client_secret = regInfo.getApp_secret();
-        String grant_type = "authorization_code";
-        String code = authInfo.getAuthorize_code();
-        final String state = regInfo.getSeed_secret();
-        map.put("client_id", client_id);
-        map.put("grant_type", grant_type);
-        map.put("client_secret", client_secret);
-        map.put("code", code);
-        map.put("state", state);
-
-        X.Post(url, map, new MyCallBack<String>() {
-            @Override
-            protected void onFailure(String message) {
-                Log.i("________**", message + "");
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                Log.i("______!!", entity.getStatus());
-                tokenInfo = entity.toObj(TokenInfo.class);
-//                TokenInfo.setTokenInfo(tokenInfo);
-                Message msg = new Message();
-                msg.what = 3;
-                handler.sendMessage(msg);
-                //获取用户信息
-                getUsersInfo(client_id, state, tokenInfo.getAccess_token());
-            }
-        });
-    }
-
-    /**
-     * 获取用户信息接口
-     */
-
-    private void getUsersInfo(String client_id, String state, String access_token) {
-        String url = regInfo.getSource_url();
-
-        JSONObject json = new JSONObject();
-        try {
-            json.put("client_id", client_id);
-            json.put("state", state);
-            json.put("access_token", access_token);
-            json.put("action", "getUserInfo");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        X.Post(url, json, new MyCallBack<String>() {
-            @Override
-            protected void onFailure(String message) {
-
-            }
-
-            @Override
-            public void onSuccess(NetEntity entity) {
-                UsersInfo info = entity.toObj(UsersInfo.class);
-                UsersInfo.save(info, UsersInfo.class);
-            }
-        });
-    }
 }
