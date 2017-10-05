@@ -394,7 +394,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
         if (System.currentTimeMillis() - lastBackTime > 1500) {
             lastBackTime = System.currentTimeMillis();
-            Toast.makeText(mContext, "再按一次退出！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.click_once_more_to_exit, Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }
@@ -427,7 +427,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     }
                     if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                         String result = bundle.getString(CodeUtils.RESULT_STRING);
-                        Toast.makeText(this, "车子编号为：" + result, Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.the_car_id_is) + result, Toast.LENGTH_LONG).show();
                         Message msg = new Message();
                         msg.what = 11;
                         msg.obj = result;
@@ -436,7 +436,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         mHandler.sendMessage(msg);
 
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, R.string.parse_barcode_failure, Toast.LENGTH_LONG).show();
                     }
                 }
             } else if (requestCode == SEARCH_LOCATION && resultCode == RESULT_OK) {

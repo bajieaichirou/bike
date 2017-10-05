@@ -61,7 +61,7 @@ public class CreditScoreActivity extends BaseActivity implements PullToRefreshBa
         x.view().inject(this);
         mTitlebar = (CustomTitlebar) findViewById(R.id.titlebar);
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
-        mTitlebar.setTitleText("我的信用积分");
+        mTitlebar.setTitleText(getString(R.string.my_credit_score));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

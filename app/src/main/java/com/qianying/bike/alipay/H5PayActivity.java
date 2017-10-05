@@ -2,6 +2,7 @@ package com.qianying.bike.alipay;
 
 import com.alipay.sdk.app.PayTask;
 import com.alipay.sdk.util.H5PayResultModel;
+import com.qianying.bike.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,9 +47,9 @@ public class H5PayActivity extends Activity {
 		}
 		if (TextUtils.isEmpty(url)) {
 			// 测试H5支付，必须设置要打开的url网站
-			new AlertDialog.Builder(H5PayActivity.this).setTitle("警告")
-					.setMessage("必须配置需要打开的url 站点，请在PayDemoActivity类的h5Pay中配置")
-					.setPositiveButton("确定", new OnClickListener() {
+			new AlertDialog.Builder(H5PayActivity.this).setTitle(R.string.titile_warning)
+					.setMessage(R.string.warning_content)
+					.setPositiveButton(R.string.confirm, new OnClickListener() {
 
 						@Override
 						public void onClick(DialogInterface arg0, int arg1) {

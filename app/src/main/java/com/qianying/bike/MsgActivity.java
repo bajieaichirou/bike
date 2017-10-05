@@ -32,7 +32,7 @@ public class MsgActivity extends BaseActivity {
                 finish();
             }
         });
-        mTitlebar.setTitleText("消息");
+        mTitlebar.setTitleText(getString(R.string.title_message));
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -58,7 +58,7 @@ public class RegisterPayActivity extends BaseActivity implements View.OnClickLis
         statusDeposit = (StatusView) findViewById(R.id.status_deposit);
         statusCertification = (StatusView) findViewById(R.id.status_certification);
         statusComplete = (StatusView) findViewById(R.id.status_complete);
-        mTitlebar.setTitleText("押金充值");
+        mTitlebar.setTitleText(getString(R.string.deposit_recharge));
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,14 +66,14 @@ public class RegisterPayActivity extends BaseActivity implements View.OnClickLis
                 finish();
             }
         });
-        statusTel.setText("手机验证");
+        statusTel.setText(getString(R.string.title_phone_check));
         statusTel.setStatus(StatusView.COMPLETE);
         statusTel.setDivider(false);
-        statusDeposit.setText("押金充值");
+        statusDeposit.setText(getString(R.string.deposit_recharge));
         statusDeposit.setStatus(StatusView.CURRENT);
-        statusCertification.setText("实名认证");
+        statusCertification.setText(getString(R.string.certification));
         statusCertification.setStatus(StatusView.NEXT);
-        statusComplete.setText("注册完成");
+        statusComplete.setText(getString(R.string.finish_reg));
         statusComplete.setStatus(StatusView.NEXT);
         statusComplete.setDivider(true);
 

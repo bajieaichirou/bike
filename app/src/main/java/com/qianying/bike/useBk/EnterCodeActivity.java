@@ -26,7 +26,7 @@ public class EnterCodeActivity extends BaseActivity implements View.OnClickListe
 
     private void initView() {
         final TextView commTitle = (TextView) findViewById(R.id.comm_title);
-        commTitle.setText("车辆解锁");
+        commTitle.setText(R.string.title_unlock);
         final ImageView commBackArrow = (ImageView) findViewById(R.id.comm_back_arrow);
         commBackArrow.setOnClickListener(this);
     }

@@ -26,7 +26,7 @@ public class ProblemBikeActivity extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         final TextView commTitle = (TextView) findViewById(R.id.comm_title);
-        commTitle.setText("客服服务");
+        commTitle.setText(R.string.title_callcenter);
         final ImageView commBackArrow = (ImageView) findViewById(R.id.comm_back_arrow);
         commBackArrow.setOnClickListener(this);
     }

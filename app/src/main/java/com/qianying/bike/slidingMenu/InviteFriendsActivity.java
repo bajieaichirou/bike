@@ -34,7 +34,7 @@ public class InviteFriendsActivity extends BaseActivity implements View.OnClickL
         share = (ImageView) findViewById(R.id.img_share);
         mTitlebar = (CustomTitlebar) findViewById(R.id.titlebar);
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
-        mTitlebar.setTitleText("邀请好友");
+        mTitlebar.setTitleText(getString(R.string.invite_friends));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

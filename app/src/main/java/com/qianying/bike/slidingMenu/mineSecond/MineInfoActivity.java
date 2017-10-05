@@ -91,9 +91,9 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
      */
     protected void showChoosePicDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("设置头像");
-        String[] items = {"选择本地照片", "拍照"};
-        builder.setNegativeButton("取消", null);
+        builder.setTitle(R.string.set_portrait);
+        String[] items = {getString(R.string.choose_local_pic), getString(R.string.capture)};
+        builder.setNegativeButton(getString(R.string.cancel), null);
         builder.setItems(items, new DialogInterface.OnClickListener() {
 
             @Override

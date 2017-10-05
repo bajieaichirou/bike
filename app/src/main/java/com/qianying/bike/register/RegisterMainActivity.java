@@ -88,7 +88,7 @@ public class RegisterMainActivity extends BaseActivity implements View.OnClickLi
         certificate.setEnabled(false);
 
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
-        mTitlebar.setTitleText("实名认证");
+        mTitlebar.setTitleText(getString(R.string.certification));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +100,7 @@ public class RegisterMainActivity extends BaseActivity implements View.OnClickLi
         statusTel.setDivider(false);
         statusDeposit.setText("押金充值");
         statusDeposit.setStatus(StatusView.CURRENT);
-        statusCertification.setText("实名认证");
+        statusCertification.setText(getString(R.string.certification));
         statusCertification.setStatus(StatusView.CURRENT);
         statusComplete.setText("注册完成");
         statusComplete.setStatus(StatusView.NEXT);

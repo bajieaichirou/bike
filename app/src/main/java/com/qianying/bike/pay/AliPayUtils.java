@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.AuthTask;
 import com.alipay.sdk.app.PayTask;
+import com.qianying.bike.R;
 
 import java.util.Map;
 
@@ -42,9 +43,9 @@ public enum AliPayUtils {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        Toast.makeText(activity, "支付成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, R.string.pay_success, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, R.string.pay_failure, Toast.LENGTH_SHORT).show();
                     }
                     break;
                 }
@@ -59,12 +60,12 @@ public enum AliPayUtils {
                         // 获取alipay_open_id，调支付时作为参数extern_token 的value
                         // 传入，则支付账户为该授权账户
                         Toast.makeText(activity,
-                                "授权成功\n" + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT)
+                                activity.getString(R.string.auth_success) + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT)
                                 .show();
                     } else {
                         // 其他状态值则为授权失败
                         Toast.makeText(activity,
-                                "授权失败" + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT).show();
+                                activity.getString(R.string.auth_failure) + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT).show();
 
                     }
                     break;

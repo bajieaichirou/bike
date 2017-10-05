@@ -73,7 +73,7 @@ public class EndUseBkActivity extends BaseActivity implements View.OnClickListen
         bottomTextTv = (TextView) findViewById(R.id.bottom_text_tv);
 
         final TextView commTitle = (TextView) findViewById(R.id.comm_title);
-        commTitle.setText("骑行中");
+        commTitle.setText(R.string.bike_riding);
         final ImageView commBackArrow = (ImageView) findViewById(R.id.comm_back_arrow);
         commBackArrow.setOnClickListener(this);
     }

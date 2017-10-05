@@ -79,7 +79,7 @@ public class VerifyActivity extends BaseActivity  {
                 finish();
             }
         });
-        mTitlebar.setTitleText("实名认证");
+        mTitlebar.setTitleText(getString(R.string.certification));
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

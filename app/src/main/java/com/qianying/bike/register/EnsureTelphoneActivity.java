@@ -17,17 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.maps.model.Marker;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.qianying.bike.MainActivity;
-import com.qianying.bike.MyApp;
-import com.qianying.bike.O;
 import com.qianying.bike.R;
 import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.comm.H;
@@ -35,11 +30,9 @@ import com.qianying.bike.model.AuthInfo;
 import com.qianying.bike.model.NetEntity;
 import com.qianying.bike.model.RegInfo;
 import com.qianying.bike.model.TokenInfo;
-import com.qianying.bike.model.UserInfo;
 import com.qianying.bike.model.UsersInfo;
 import com.qianying.bike.util.JsonUtil;
 import com.qianying.bike.util.MD5Util;
-import com.qianying.bike.util.SPUtil;
 import com.qianying.bike.util.SPUtils;
 import com.qianying.bike.util.SPrefUtil;
 import com.qianying.bike.widget.CustomTitlebar;
@@ -117,7 +110,7 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
                 finish();
             }
         });
-        mTitlebar.setTitleText("手机验证");
+        mTitlebar.setTitleText(getString(R.string.title_phone_check));
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
 
 
@@ -138,7 +131,7 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.txt_start://点击开始按钮
                 if (!checkbox.isChecked()) {
-                    Toast.makeText(EnsureTelphoneActivity.this, "请勾选", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EnsureTelphoneActivity.this, R.string.pls_check, Toast.LENGTH_SHORT).show();
                 } else {
                     login(telphone.getText().toString());
                 }
@@ -277,7 +270,7 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
     int step = 0;
     private void sendSmsCode(String phoneNum) {
         if (!isMobileNum(phoneNum)) {
-            Toast.makeText(mContext, "无效的手机号码", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.invalid_phone_number, Toast.LENGTH_LONG).show();
             return;
         } else {
             time.start();
@@ -384,14 +377,14 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void onTick(long millisUntilFinished) {
-            getVerification.setText(millisUntilFinished / 1000 + "秒");
+            getVerification.setText(millisUntilFinished / 1000 + getString(R.string.second));
             getVerification.setEnabled(false);
         }
 
         @Override
         public void onFinish() {
             getVerification.setEnabled(true);
-            getVerification.setText("获取验证码");
+            getVerification.setText(R.string.get_very_code);
         }
     }
 

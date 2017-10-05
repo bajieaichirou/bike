@@ -71,7 +71,7 @@ public class SharePopup extends PopupWindow implements View.OnClickListener, Pla
     public void onClick(View v) {
         ShareParams shareParams = new ShareParams();
         shareParams.setShareType(Platform.SHARE_TEXT);
-        shareParams.setText("小樱单车");
+        shareParams.setText(mContext.getString(R.string.qianyin_bike));
         switch (v.getId()) {
             case R.id.ll_wechat:
                 JShareInterface.share(Wechat.Name, shareParams, this);

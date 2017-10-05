@@ -201,7 +201,7 @@ public class MapHelper implements LocationSource,
                 }
 
             } else {
-                String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
+                String errText = context.getString(R.string.locate_position_faliure) + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
                 Log.e(TAG, errText);
 //                MyApp.getInstance().Toast(errText);
             }

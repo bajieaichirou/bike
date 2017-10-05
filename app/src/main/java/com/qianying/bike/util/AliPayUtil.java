@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
+import com.qianying.bike.R;
 import com.qianying.bike.pay.AuthResult;
 import com.qianying.bike.pay.PayResult;
 
@@ -60,7 +61,7 @@ public class AliPayUtil {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         if (aliPayListener != null) {
-                            aliPayListener.onPaySuccess("支付成功");
+                            aliPayListener.onPaySuccess(activity.getString(R.string.pay_success));
                         }
 
 
@@ -68,7 +69,7 @@ public class AliPayUtil {
 //						Toast.makeText(RouteBuyActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         if (aliPayListener != null) {
-                            aliPayListener.onPayFailure("支付失败");
+                            aliPayListener.onPayFailure(activity.getString(R.string.pay_failure));
                         }
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
 //						Toast.makeText(RouteBuyActivity.this, "支付失败", Toast.LENGTH_SHORT).show();

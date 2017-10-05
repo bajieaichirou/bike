@@ -46,7 +46,7 @@ public class XGNCActivity extends BaseActivity implements View.OnClickListener {
         xgnc_save = (TextView) findViewById(R.id.xgnc_save);
         xgnc_save.setOnClickListener(this);
         mTitlebar = (CustomTitlebar) findViewById(R.id.titlebar);
-        mTitlebar.setTitleText("修改昵称");
+        mTitlebar.setTitleText(getString(R.string.title_change_nickname));
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class XGNCActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         String nc = edit_sfz.getText().toString().trim();
         if(null==nc||"".equals(nc)){
-            Toast.makeText(XGNCActivity.this,"请输入新的昵称",Toast.LENGTH_SHORT).show();
+            Toast.makeText(XGNCActivity.this, R.string.pls_input_new_nickname,Toast.LENGTH_SHORT).show();
             return;
         }else {
             changeNC(nc);
@@ -94,7 +94,7 @@ public class XGNCActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onSuccess(NetEntity entity) {
-                Toast.makeText(XGNCActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(XGNCActivity.this, R.string.modification_success,Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

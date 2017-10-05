@@ -32,7 +32,7 @@ public class ReturnDepositActivity extends BaseActivity implements View.OnClickL
         lookDetail = (TextView) findViewById(R.id.txt_look_detail);
         depositCount = (TextView) findViewById(R.id.txt_deposit_count);
 
-        mTitlebar.setTitleText("退押金");
+        mTitlebar.setTitleText(getString(R.string.return_deposit));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

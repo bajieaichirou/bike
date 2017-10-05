@@ -115,17 +115,17 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
         statusCertification = (StatusViewCopy) findViewById(R.id.status_certification);
         statusComplete = (StatusViewCopy) findViewById(R.id.status_complete);
 
-        statusTel.setText("手机验证");
+        statusTel.setText(getString(R.string.title_phone_check));
         statusTel.setStatus(StatusViewCopy.COMPLETE);
         statusTel.setDivider(false);
         statusTel.setTextColor(R.color.text);
-        statusDeposit.setText("押金充值");
+        statusDeposit.setText(getString(R.string.deposit_recharge));
         statusDeposit.setStatus(StatusViewCopy.CURRENT);
         statusDeposit.setTextColor(R.color.text);
-        statusCertification.setText("实名认证");
+        statusCertification.setText(getString(R.string.certification));
         statusCertification.setStatus(StatusViewCopy.NEXT);
         statusCertification.setTextColor(R.color.text);
-        statusComplete.setText("注册完成");
+        statusComplete.setText(getString(R.string.finish_reg));
         statusComplete.setStatus(StatusViewCopy.NEXT);
         statusComplete.setTextColor(R.color.text);
         statusComplete.setDivider(true);

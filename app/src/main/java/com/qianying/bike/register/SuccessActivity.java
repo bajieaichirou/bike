@@ -47,21 +47,21 @@ public class SuccessActivity extends BaseActivity {
         statusComplete = (StatusView) findViewById(R.id.status_complete);
         mTitlebar = (CustomTitlebar) findViewById(R.id.titlebar);
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
-        mTitlebar.setTitleText("实名认证");
+        mTitlebar.setTitleText(getString(R.string.certification));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        statusTel.setText("手机验证");
+        statusTel.setText(getString(R.string.title_phone_check));
         statusTel.setStatus(StatusView.COMPLETE);
         statusTel.setDivider(false);
-        statusDeposit.setText("押金充值");
+        statusDeposit.setText(getString(R.string.deposit_recharge));
         statusDeposit.setStatus(StatusView.COMPLETE);
-        statusCertification.setText("实名认证");
+        statusCertification.setText(getString(R.string.certification));
         statusCertification.setStatus(StatusView.COMPLETE);
-        statusComplete.setText("注册完成");
+        statusComplete.setText(getString(R.string.finish_reg));
         statusComplete.setStatus(StatusView.NEXT);
         statusComplete.setDivider(true);
 

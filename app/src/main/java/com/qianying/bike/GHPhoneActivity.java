@@ -63,7 +63,8 @@ public class GHPhoneActivity extends BaseActivity implements View.OnClickListene
         });
 
         final TextView titleTv = (TextView) findViewById(R.id.comm_title);
-        titleTv.setText("更换手机号");
+        titleTv.setText(R.string.title_change_phone_number
+        );
         edit_sfz = (EditText) findViewById(R.id.edit_sfz);
         edit_new_phone = (EditText) findViewById(R.id.edit_new_phone);
         edit_verification_code = (EditText) findViewById(R.id.edit_verification_code);
@@ -82,7 +83,7 @@ public class GHPhoneActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.txt_get_verification:
                 if (null == phone || phone.equals("")) {
-                    Toast.makeText(GHPhoneActivity.this, "请输入新的手机号", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GHPhoneActivity.this, R.string.pls_input_phone_number, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 sendSmsCode(phone);
@@ -91,15 +92,15 @@ public class GHPhoneActivity extends BaseActivity implements View.OnClickListene
             case R.id.text_ghphone:
 
                 if (null == phone || phone.equals("")) {
-                    Toast.makeText(GHPhoneActivity.this, "请输入新的手机号", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GHPhoneActivity.this, R.string.pls_input_phone_number, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (null == textcode || textcode.equals("")) {
-                    Toast.makeText(GHPhoneActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GHPhoneActivity.this, R.string.pls_input_verycode, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (null == sfz || sfz.equals("")) {
-                    Toast.makeText(GHPhoneActivity.this, "请输入身份证", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GHPhoneActivity.this, R.string.pls_input_idcard_no, Toast.LENGTH_SHORT).show();
                 }
                 changePhone(phone, sfz, textcode);
                 break;
@@ -120,7 +121,7 @@ public class GHPhoneActivity extends BaseActivity implements View.OnClickListene
 
     private void sendSmsCode(String phoneNum) {
         if (!isMobileNum(phoneNum)) {
-            Toast.makeText(mContext, "无效的手机号码", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.invalid_phone_number, Toast.LENGTH_LONG).show();
             return;
         }else {
             time.start();
@@ -196,14 +197,14 @@ public class GHPhoneActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public void onTick(long millisUntilFinished) {
-            txt_get_verification.setText(millisUntilFinished / 1000 + "秒");
+            txt_get_verification.setText(millisUntilFinished / 1000 + getString(R.string.second));
             txt_get_verification.setEnabled(false);
         }
 
         @Override
         public void onFinish() {
             txt_get_verification.setEnabled(true);
-            txt_get_verification.setText("获取验证码");
+            txt_get_verification.setText(R.string.get_very_code);
         }
     }
 

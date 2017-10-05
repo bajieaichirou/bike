@@ -37,8 +37,8 @@ public class AlwaysUseAddressActivity extends BaseActivity implements View.OnCli
     }
 
     private void initData() {
-        alwaysUrlOne.setText(PreUtils.getStr(PreUtils.PreKeys.always_url_one, "设置常用地址1"));
-        alwaysUrlTwo.setText(PreUtils.getStr(PreUtils.PreKeys.always_url_two, "设置常用地址2"));
+        alwaysUrlOne.setText(PreUtils.getStr(PreUtils.PreKeys.always_url_one, getString(R.string.set_live_address_1)));
+        alwaysUrlTwo.setText(PreUtils.getStr(PreUtils.PreKeys.always_url_two, getString(R.string.set_live_address_2)));
     }
 
     private void initView() {

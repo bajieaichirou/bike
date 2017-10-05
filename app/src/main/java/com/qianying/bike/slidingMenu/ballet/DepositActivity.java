@@ -71,7 +71,7 @@ public class DepositActivity extends Activity implements View.OnClickListener {
         aliPay = (CheckBox) findViewById(R.id.checkbox_alipay);
 
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
-        mTitlebar.setTitleText("钱包充值");
+        mTitlebar.setTitleText(getString(R.string.wallet_recharge));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

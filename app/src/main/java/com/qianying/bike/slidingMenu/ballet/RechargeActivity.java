@@ -51,9 +51,9 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
         type = getIntent().getStringExtra("type");
         if (type != null) {
             if (type.equals("1")) {
-                item = "押金";
+                item = getString(R.string.deposit);
             } else {
-                item = "充值";
+                item = getString(R.string.recharge);
             }
         }
     }
@@ -82,7 +82,7 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
                 finish();
             }
         });
-        mTitlebar.setTitleText("押金充值");
+        mTitlebar.setTitleText(getString(R.string.deposit_recharge));
         ((CheckBox) findViewById(R.id.checkbox_alipay)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -184,7 +184,7 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
 
                                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                                     if (resultStatus.contains("9000")) {
-                                        Toast.makeText(ay, "支付成功",
+                                        Toast.makeText(ay, R.string.pay_success,
                                                 Toast.LENGTH_SHORT).show();
                                         ay.setResult(MainActivity.REQUEST_SCAN_AFTER_RECHARGE, new Intent().putExtra("callback", "true"));
                                         ay.finish();
@@ -192,12 +192,12 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
                                         // 判断resultStatus 为非“9000”则代表可能支付失败
                                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                                         if (resultStatus.contains("8000")) {
-                                            Toast.makeText(ay, "支付结果确认中",
+                                            Toast.makeText(ay, R.string.pay_result_confirming,
                                                     Toast.LENGTH_SHORT).show();
 
                                         } else {
                                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                                            Toast.makeText(ay, "支付已取消",
+                                            Toast.makeText(ay, R.string.pay_cancelled,
                                                     Toast.LENGTH_SHORT).show();
 
                                         }

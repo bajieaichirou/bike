@@ -114,7 +114,7 @@ public class CertificationActivity extends BaseActivity implements View.OnClickL
 //        country = (EditText) findViewById(R.id.edit_country);
 
         mTitlebar.setTitleColor(getResources().getColor(R.color.white));
-        mTitlebar.setTitleText("实名认证");
+        mTitlebar.setTitleText(getString(R.string.certification));
         mTitlebar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
