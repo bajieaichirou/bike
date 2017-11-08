@@ -417,7 +417,7 @@ public class MapHelper implements LocationSource,
                     public void onResponse(final NetEntity entity) {
                         // do anything with response
 
-                        final JsonArray list_bikeInfo = (JsonArray) entity.getData().getAsJsonObject().get("bikes");
+                        final JsonArray list_bikeInfo = (JsonArray)entity.getData().getAsJsonArray();
                         for (Marker marker : markers) {
                             marker.remove();
                         }
@@ -436,7 +436,7 @@ public class MapHelper implements LocationSource,
 
                                     }
                                 }
-                                MyApp.isLogin = !entity.getData().getAsJsonObject().get("islogin").toString().equals("0");
+//                                MyApp.isLogin = !entity.getData().getAsJsonObject().get("islogin").toString().equals("0");
 
                     }
 
