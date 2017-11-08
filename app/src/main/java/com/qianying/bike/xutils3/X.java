@@ -5,7 +5,14 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.security.SecureRandom;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 
 /**
@@ -75,7 +82,48 @@ public class X {
         return cancelable;
     }
 
+    /**
+     * 发送post请求
+     * @param <T>
+     */
+    public static <T> Callback.Cancelable Post(String url, JSONObject json,boolean ssl, Callback.ProgressCallback<T> callback){
+        RequestParams params=new RequestParams(url);
+        params.addHeader("application/json","charset=UTF-8");
+        params.addBodyParameter("",json.toString());
+        if(ssl){
 
+        }
+        Callback.Cancelable cancelable = x.http().post(params, callback);
+        return cancelable;
+    }
+
+    private static void setSSL(RequestParams client) throws Exception{
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, new TrustManager[]{new X509TrustManager() {
+
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+
+            }
+
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws java.security.cert.CertificateException {
+
+            }
+
+            @Override
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[0];
+            }
+        }}, new SecureRandom());
+        client.setSslSocketFactory(sc.getSocketFactory());
+        client.setHostnameVerifier(new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        });
+    }
     /**
      * 上传文件
      * @param <T>

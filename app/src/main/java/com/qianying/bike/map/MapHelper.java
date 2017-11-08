@@ -38,6 +38,7 @@ import com.google.gson.reflect.TypeToken;
 import com.qianying.bike.MainActivity;
 import com.qianying.bike.MyApp;
 import com.qianying.bike.R;
+import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.comm.H;
 import com.qianying.bike.model.AuthInfo;
 import com.qianying.bike.model.BikeInfo;
@@ -54,10 +55,20 @@ import com.qianying.bike.xutils3.X;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.http.RequestParams;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.security.cert.CertificateException;
+import javax.security.cert.X509Certificate;
 
 /**
  * 高德地图的帮助类
@@ -398,29 +409,31 @@ public class MapHelper implements LocationSource,
         String url = regInfo.getSource_url();
         String access_token = tokenInfo.getAccess_token();
 
-        HashMap map = new HashMap();
+        JSONObject map = new JSONObject();
+        try {
         map.put("client_id", client_id);
         map.put("state", state);
         map.put("access_token", access_token);
         map.put("action", "searchBikes");
         map.put("lat", String.valueOf(aMapLocation.getLatitude()));
-        map.put("lng", String.valueOf(aMapLocation.getLongitude()));
+            map.put("lng", String.valueOf(aMapLocation.getLongitude()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        X.Post(url, map, true,new MyCallBack<String>() {
 
-        AndroidNetworking.post(url)
-                .addBodyParameter(map)
-                .setPriority(Priority.MEDIUM)
-                .build().
-                getAsParsed(new TypeToken<NetEntity>() {
-                }, new ParsedRequestListener<NetEntity>() {
-                    @Override
-                    public void onResponse(final NetEntity entity) {
-                        // do anything with response
+            @Override
+            protected void onFailure(String message) {
 
-                        final JsonArray list_bikeInfo = (JsonArray)entity.getData().getAsJsonArray();
-                        for (Marker marker : markers) {
-                            marker.remove();
-                        }
+            }
+
+            @Override
+            public void onSuccess(NetEntity entity) {
+                final JsonArray list_bikeInfo = (JsonArray)entity.getData().getAsJsonObject().get("bikes");
+                for (Marker marker : markers) {
+                    marker.remove();
+                }
 //                        new Handler(Looper.getMainLooper(), new Handler.Callback() {
 //                            @Override
 //                            public boolean handleMessage(Message message) {
@@ -428,24 +441,23 @@ public class MapHelper implements LocationSource,
 //                                return false;
 //                            }
 //                        });
-                                if (list_bikeInfo != null && list_bikeInfo.size() > 0) {
-                                    for (int i = 0; i < list_bikeInfo.size(); i++) {
-                                        JsonObject jo = (JsonObject) list_bikeInfo.get(i);
+                if (list_bikeInfo != null && list_bikeInfo.size() > 0) {
+                    for (int i = 0; i < list_bikeInfo.size(); i++) {
+                        JsonObject jo = (JsonObject) list_bikeInfo.get(i);
 
-                                        addMarker(jo.get("lat").getAsDouble(), jo.get("lng").getAsDouble());
-
-                                    }
-                                }
-//                                MyApp.isLogin = !entity.getData().getAsJsonObject().get("islogin").toString().equals("0");
+                        addMarker(jo.get("lat").getAsDouble(), jo.get("lng").getAsDouble());
 
                     }
+                }
+                                MyApp.isLogin = !entity.getData().getAsJsonObject().get("islogin").toString().equals("0");
 
-                    @Override
-                    public void onError(ANError anError) {
+            }
 
-                    }
-                });
-
+            @Override
+            public void onError(Throwable throwable, boolean b) {
+                super.onError(throwable, b);
+            }
+        });
 
     }
 
