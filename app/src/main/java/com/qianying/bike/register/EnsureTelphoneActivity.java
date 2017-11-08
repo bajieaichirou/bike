@@ -281,10 +281,9 @@ public class EnsureTelphoneActivity extends BaseActivity implements View.OnClick
         client_id = regInfo.getApp_key();
         if(client_id==null){
             step = 1;
-            RegInfo regInfo = RegInfo.getRegInfo();
-            TokenInfo tokenInfo = TokenInfo.getTokenInfo();
-            String client_id = regInfo.getApp_key();
-//            getRegInfo(this);
+            regInfo = RegInfo.getRegInfo();
+            tokenInfo = TokenInfo.getTokenInfo();
+            client_id = regInfo.getApp_key();
         }
         state = regInfo.getSeed_secret();
         url = regInfo.getSource_url();

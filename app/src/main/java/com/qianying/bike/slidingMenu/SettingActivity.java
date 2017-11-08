@@ -126,9 +126,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onSuccess(NetEntity entity) {
                 UserHelper.getInstance().loginOut();
-                RegInfo.setRegInfo(null);
-                TokenInfo.setTokenInfo(null);
-                AuthInfo.setAuthInfo(null);
+
                 SPUtils.put(SettingActivity.this, MainActivity.TAG,"");
                 startActivity(new Intent(SettingActivity.this, MainActivity.class));
                 finish();

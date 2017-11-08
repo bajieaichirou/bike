@@ -3,6 +3,8 @@ package com.qianying.bike.util;
 import android.content.Context;
 
 import com.qianying.bike.model.User;
+import com.qianying.bike.model.UserInfo;
+import com.qianying.bike.model.UsersInfo;
 import com.qianying.bike.register.EnsureTelphoneActivity;
 import com.qianying.bike.register.RegisterMainActivity;
 
@@ -65,7 +67,10 @@ public class UserHelper {
 
     public void loginOut() {
         user = null;
-        setUser(new User("", ""));
+
+        UsersInfo.save(null,UsersInfo.class);
+        setUser(new User("",""));
+
 //        setAccessToken("");
         PreUtils.loginOut();
     }
