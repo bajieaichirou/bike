@@ -1,6 +1,7 @@
 package com.qianying.bike.base;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,6 +38,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityPool.getInstance().addActivity(this);
         SPrefUtil.iniContext(getApplication());
         mContext = this;
         x.view().inject(this);

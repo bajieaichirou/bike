@@ -71,7 +71,7 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
         recharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recharge(RechargeActivity.this,action,"1","0.01");
+                recharge(RechargeActivity.this, action, "1", "0.01");
 
             }
         });
@@ -119,15 +119,14 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-
-    public static void recharge(final Activity ay, final String action,String type,String total) {
-         String client_id;
-         String state;
-         String url;
-         String access_token;
+    public static void recharge(final Activity ay, final String action, String type, String total) {
+        String client_id;
+        String state;
+        String url;
+        String access_token;
         final IWXAPI mWxApi = WXAPIFactory.createWXAPI(ay, "wx0889a773cbaf6df0", true);
         mWxApi.registerApp("wx0889a773cbaf6df0");
-        RegInfo regInfo = RegInfo.newInstance();
+        final RegInfo regInfo = RegInfo.newInstance();
         TokenInfo tokenInfo = TokenInfo.newInstance();
         client_id = regInfo.getApp_key();
         state = regInfo.getSeed_secret();
@@ -191,7 +190,12 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
                                     } else {
                                         // 判断resultStatus 为非“9000”则代表可能支付失败
                                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-                                        if (resultStatus.contains("8000")) {
+                                        if (resultStatus.contains("9000")) {
+                                            Toast.makeText(ay, R.string.pay_success,
+                                                    Toast.LENGTH_SHORT).show();
+                                            ay.setResult(MainActivity.REQUEST_SCAN_AFTER_RECHARGE, new Intent().putExtra("callback", "true"));
+                                            ay.finish();
+                                        } else if (resultStatus.contains("8000")) {
                                             Toast.makeText(ay, R.string.pay_result_confirming,
                                                     Toast.LENGTH_SHORT).show();
 

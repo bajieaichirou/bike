@@ -61,7 +61,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMap.OnMapClickListener {
+public class MainActivity extends BluActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMap.OnMapClickListener {
 
     public static final int REQUEST_SCAN = 102;
     private static final int REQUEST_CODE = 101;
@@ -427,14 +427,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         return;
                     }
                     if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                        String result = bundle.getString(CodeUtils.RESULT_STRING);
-                        Toast.makeText(this, getString(R.string.the_car_id_is) + result, Toast.LENGTH_LONG).show();
-                        Message msg = new Message();
-                        msg.what = 11;
-                        msg.obj = result;
+                        result = bundle.getString(CodeUtils.RESULT_STRING);
+//                        Toast.makeText(this, getString(R.string.the_car_id_is) + result, Toast.LENGTH_LONG).show();
+                        scan(result);
 
-                        //处理扫描结果（在界面上显示）
-                        mHandler.sendMessage(msg);
 
                     } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                         Toast.makeText(MainActivity.this, R.string.parse_barcode_failure, Toast.LENGTH_LONG).show();
@@ -445,6 +441,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 if (location != null)
                     mapView.getMap().moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLat(), location.getLon())));
             }
+    }
+    String result;
+    @Override
+    public void unlockCallback() {
+        super.unlockCallback();
+        Message msg = new Message();
+        msg.what = 11;
+        msg.obj = result;
+
+        //处理扫描结果（在界面上显示）
+        mHandler.sendMessage(msg);
     }
 
     private void checkPermissionStep() {
