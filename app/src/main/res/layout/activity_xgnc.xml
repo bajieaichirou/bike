@@ -18,14 +18,14 @@
             android:paddingRight="10dp"
             android:text="保存"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:textSize="14dp"/>
     </com.qianying.bike.widget.CustomTitlebar>
 <LinearLayout
     android:layout_marginTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/auto_white">
     <EditText
         android:id="@+id/edit_sfz"
         android:layout_width="match_parent"

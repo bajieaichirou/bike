@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/auto_white"
         android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/white">
+        android:background="@color/auto_white">
 
         <com.qianying.bike.widget.StatusViewCopy
             android:id="@+id/status_tel"
@@ -57,7 +57,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/auto_white"
         android:orientation="vertical">
 
 
@@ -65,7 +65,7 @@
             android:id="@+id/mine_ballet_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView
@@ -75,7 +75,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/mine_wallet" />
 
-            <TextView
+            <TextView android:id="@+id/ballet_num"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/arrow_mine_wallet"
@@ -101,7 +101,7 @@
             android:id="@+id/mine_favourable_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView
@@ -135,7 +135,7 @@
             android:id="@+id/mine_travel_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView
@@ -170,7 +170,7 @@
             android:id="@+id/mine_message_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView
@@ -204,7 +204,7 @@
             android:id="@+id/invite_friends_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView
@@ -238,7 +238,7 @@
             android:id="@+id/user_book_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView
@@ -272,7 +272,7 @@
             android:id="@+id/setting_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
+            android:background="@color/auto_white"
             android:padding="10dp">
 
             <TextView

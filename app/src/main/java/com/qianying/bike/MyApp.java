@@ -14,6 +14,7 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.xutils.x;
 
+import app.auto.runner.base.framework.Init;
 import cn.jiguang.share.android.api.JShareInterface;
 import cn.jpush.android.api.JPushInterface;
 
@@ -22,7 +23,7 @@ import cn.jpush.android.api.JPushInterface;
  * Created by Vinsen on 17/5/16.
  */
 
-public class MyApp extends Application {
+public class MyApp extends Init {
 
     private static MyApp app;
 

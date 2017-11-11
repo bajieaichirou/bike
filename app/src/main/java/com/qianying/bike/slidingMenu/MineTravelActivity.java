@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.qianying.bike.R;
 import com.qianying.bike.adapter.TravelAdapter;
 import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.widget.CustomTitlebar;
+
+import app.auto.runner.base.action.ViewInflater;
 
 /**
  * 我的行程
@@ -23,7 +26,7 @@ public class MineTravelActivity extends BaseActivity {
     private TextView carbon;
     private TextView achievement;
     private TextView noTravel;
-    private RecyclerView mRecyclerView;
+    private ListView mRecyclerView;
 
     private TravelAdapter mTravelAdapter;
 
@@ -31,14 +34,15 @@ public class MineTravelActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        setContentView(R.layout.activity_mine_travel);
+
+        setContentView(new ViewInflater(this).inflate(R.layout.activity_mine_travel,null));
 
         initViews();
     }
 
     private void initViews() {
         mTitlebar = (CustomTitlebar) findViewById(R.id.titlebar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerView = (ListView) findViewById(R.id.recyclerview);
         drivePile = (TextView) findViewById(R.id.txt_drive_pile);
         carbon = (TextView) findViewById(R.id.txt_carbon);
         achievement = (TextView) findViewById(R.id.txt_achieve);

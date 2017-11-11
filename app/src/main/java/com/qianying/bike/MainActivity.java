@@ -61,6 +61,12 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+import app.auto.runner.ActivityBase;
+import app.auto.runner.base.intf.FunCallback;
+import app.auto.runner.base.utility.ToastUtil;
+
 public class MainActivity extends BluActivity implements View.OnClickListener, AMap.OnMarkerClickListener, AMap.OnMapClickListener {
 
     public static final int REQUEST_SCAN = 102;
@@ -101,6 +107,15 @@ public class MainActivity extends BluActivity implements View.OnClickListener, A
         mContext = this;
         phone = (String) SPUtils.get(MainActivity.this, MainActivity.TAG, "");
         setContentView(R.layout.activity_main);
+        getView(R.id.title).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                ToastUtil.toastenable = !ToastUtil.toastenable;
+                Toast.makeText(v.getContext(), "调试" + (ToastUtil.toastenable ? "已" : "未") + "打开", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
         usersInfo = UsersInfo.newInstance();
 
         mapView = (MapView) findViewById(R.id.map_view);
@@ -289,7 +304,28 @@ public class MainActivity extends BluActivity implements View.OnClickListener, A
         }
     }
 
-    private void userStatusAndOpen() {
+
+    public void userStatusAndOpen() {
+        userStatusAndOpen( this,new FunCallback(){
+
+            @Override
+            public void simpleRun() {
+                MainActivity contx = MainActivity.this;
+                if (phone != null && !phone.isEmpty()) {
+                    ((MainActivity) contx).checkPromise(contx);
+                } else {
+                    EnsureTelphoneActivity.start(contx);
+                }
+            }
+
+        });
+    }
+
+    public static void userStatusAndOpen(final Activity contx, final FunCallback funCallback) {
+
+        RegInfo regInfo;//Register对象
+        TokenInfo tokenInfo;
+
         regInfo = RegInfo.getRegInfo();
         tokenInfo = TokenInfo.getTokenInfo();
         String client_id = regInfo.getApp_key();
@@ -310,26 +346,21 @@ public class MainActivity extends BluActivity implements View.OnClickListener, A
         X.Post(url, json, new MyCallBack<String>() {
             @Override
             protected void onFailure(String message) {
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(contx, message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onSuccess(NetEntity entity) {
-                Toast.makeText(MainActivity.this,entity.getData().toString(),Toast.LENGTH_LONG).show();
+                new ToastUtil(contx).showToast(entity.getData().toString());
+//                Toast.makeText(MainActivity.this,entity.getData().toString(),Toast.LENGTH_LONG).show();
                 if (entity.getStatus().equals("true") && entity.getErrno().equals("0")) {
                     UsersInfo user = JsonUtil.jsonToEntity(entity.getData().toString(), UsersInfo.class);
-                    SPUtils.put(MainActivity.this, MainActivity.TAG, user.getMobile());
+                    SPUtils.put(contx, MainActivity.TAG, user.getMobile());
                     UsersInfo.save(user, UsersInfo.class);
                     UsersInfo ui = UsersInfo.get(UsersInfo.class);
-                    phone = ui.getMobile();
+                    String phone = ui.getMobile();
+                    funCallback.simpleRun();
 
-//                checkPromise(this);
-                    if (phone != null && !phone.isEmpty()) {
-
-                        checkPromise(MainActivity.this);
-                    } else {
-                        EnsureTelphoneActivity.start(mContext);
-                    }
                 }
             }
 
@@ -405,7 +436,7 @@ public class MainActivity extends BluActivity implements View.OnClickListener, A
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(data!=null&&data.getStringExtra("callback")!=null) {
+        if (data != null && data.getStringExtra("callback") != null) {
             if (requestCode == REQUEST_SCAN_AFTER_RECHARGE) {
                 userStatusAndOpen();
             } else if (requestCode == REQUEST_SCAN_AFTER_VERIFY) {
@@ -415,7 +446,7 @@ public class MainActivity extends BluActivity implements View.OnClickListener, A
             } else if (requestCode == REQUEST_SCAN) {
                 goToCaptureActivity();
             }
-        }else
+        } else
         /**
          * 处理二维码扫描结果
          */
@@ -442,7 +473,9 @@ public class MainActivity extends BluActivity implements View.OnClickListener, A
                     mapView.getMap().moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLat(), location.getLon())));
             }
     }
+
     String result;
+
     @Override
     public void unlockCallback() {
         super.unlockCallback();

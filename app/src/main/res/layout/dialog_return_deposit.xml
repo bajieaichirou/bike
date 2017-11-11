@@ -21,7 +21,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/white">
+        android:background="@color/auto_white">
 
         <TextView
             android:id="@+id/hint"
@@ -61,7 +61,7 @@
                 android:background="@color/orange"
                 android:gravity="center"
                 android:text="继续使用"
-                android:textColor="@color/white"
+                android:textColor="@color/auto_white"
                 android:textSize="13dp"/>
         </LinearLayout>
 

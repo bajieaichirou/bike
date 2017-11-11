@@ -19,7 +19,7 @@
             android:paddingRight="10dp"
             android:text="实名认证"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:textSize="14dp"/>
     </com.qianying.bike.widget.CustomTitlebar>
 <RelativeLayout

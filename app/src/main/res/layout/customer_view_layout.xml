@@ -40,13 +40,13 @@
                 android:layout_weight="1"
                 android:src="@mipmap/suo" />
 
-            <TextView
+            <TextView android:id="@+id/txt"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="开不了锁" />
+                android:text="开不了锁\n400123" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,13 +64,13 @@
                 android:layout_weight="1"
                 android:src="@mipmap/guzhang" />
 
-            <TextView
+            <TextView android:id="@id/txt"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="发现车辆故障" />
+                android:text="发现车辆故障\n400124" />
         </LinearLayout>
 
     </LinearLayout>
@@ -84,7 +84,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -99,18 +99,18 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:src="@mipmap/jubao" />
 
-            <TextView
+            <TextView android:id="@id/txt"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="举报违停" />
+                android:text="举报违停\n400125" />
         </LinearLayout>
 
         <LinearLayout
@@ -123,18 +123,18 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:src="@mipmap/problem" />
 
-            <TextView
+            <TextView android:id="@id/txt"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="其他问题" />
+                android:text="其他问题\n400126" />
         </LinearLayout>
 
     </LinearLayout>

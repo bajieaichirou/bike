@@ -18,6 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="title title"
-        android:textColor="@color/white"
+        android:textColor="@color/auto_white"
         android:textStyle="bold" />
 </FrameLayout>

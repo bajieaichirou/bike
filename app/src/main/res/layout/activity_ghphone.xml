@@ -12,7 +12,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
-        android:background="@color/white"
+        android:background="@color/auto_white"
         android:orientation="horizontal">
 
         <TextView
@@ -141,7 +141,7 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="@string/getVerification"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:textSize="14dp"/>
 
     </RelativeLayout>
@@ -156,7 +156,7 @@
         android:layout_marginLeft="@dimen/dimen_20"
         android:layout_marginRight="@dimen/dimen_20"
         android:text="更换手机号"
-        android:textColor="@color/white"
+        android:textColor="@color/auto_white"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 

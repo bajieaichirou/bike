@@ -43,7 +43,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/credit_score_bg"
             android:text="信用积分规则"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

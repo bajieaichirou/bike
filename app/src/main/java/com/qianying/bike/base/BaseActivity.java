@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
+import com.qianying.bike.MainActivity;
 import com.qianying.bike.R;
 import com.qianying.bike.util.SPrefUtil;
 
@@ -25,11 +26,14 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.auto.runner.ActivityBase;
+import app.auto.runner.ActivityBaseCompact;
+
 /**
  * Created by Vinsen on 17/5/16.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends ActivityBaseCompact {
 
     public static boolean isForeground = false;
 

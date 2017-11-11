@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/ll_deposit"
-                android:background="@color/white"
+                android:background="@color/auto_white"
                 android:orientation="vertical">
 
     <RelativeLayout
@@ -232,7 +232,7 @@
         android:background="@color/colorAccent"
         android:gravity="center"
         android:text="@string/charge"
-        android:textColor="@color/white"
+        android:textColor="@color/auto_white"
         android:textSize="16dp"/>
 
 

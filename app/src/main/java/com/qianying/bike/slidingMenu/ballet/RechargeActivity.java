@@ -16,6 +16,7 @@ import com.alipay.sdk.app.PayTask;
 import com.qianying.bike.MainActivity;
 import com.qianying.bike.R;
 import com.qianying.bike.alipay.PayResult;
+import com.qianying.bike.base.ActivityPool;
 import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.base.JsonUtil;
 import com.qianying.bike.model.NetEntity;
@@ -35,6 +36,8 @@ import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.TreeMap;
+
+import app.auto.runner.base.ActivityStack;
 
 //我的押金-充值
 public class RechargeActivity extends BaseActivity implements View.OnClickListener {
@@ -187,6 +190,8 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
                                                 Toast.LENGTH_SHORT).show();
                                         ay.setResult(MainActivity.REQUEST_SCAN_AFTER_RECHARGE, new Intent().putExtra("callback", "true"));
                                         ay.finish();
+                                        MainActivity mainActivity = (MainActivity) ActivityStack.getInstance().getActivity(MainActivity.class);
+                                        mainActivity.userStatusAndOpen();
                                     } else {
                                         // 判断resultStatus 为非“9000”则代表可能支付失败
                                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -194,7 +199,8 @@ public class RechargeActivity extends BaseActivity implements View.OnClickListen
                                             Toast.makeText(ay, R.string.pay_success,
                                                     Toast.LENGTH_SHORT).show();
                                             ay.setResult(MainActivity.REQUEST_SCAN_AFTER_RECHARGE, new Intent().putExtra("callback", "true"));
-                                            ay.finish();
+                                            ay.finish();MainActivity mainActivity = (MainActivity) ActivityStack.getInstance().getActivity(MainActivity.class);
+                                            mainActivity.userStatusAndOpen();
                                         } else if (resultStatus.contains("8000")) {
                                             Toast.makeText(ay, R.string.pay_result_confirming,
                                                     Toast.LENGTH_SHORT).show();

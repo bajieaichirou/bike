@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/auto_white"
     tools:context="com.qianying.bike.register.EnsureTelphoneActivity">
 
     <com.qianying.bike.widget.CustomTitlebar
@@ -88,7 +88,7 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="@string/getVerification"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:textSize="14dp" />
 
     </RelativeLayout>
@@ -130,6 +130,6 @@
         android:background="@color/gray_btn"
         android:gravity="center"
         android:text="开始"
-        android:textColor="@color/white"
+        android:textColor="@color/auto_white"
         android:textSize="14dp"/>
 </LinearLayout>

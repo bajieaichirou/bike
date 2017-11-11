@@ -18,14 +18,14 @@
             android:paddingRight="10dp"
             android:text="@string/detail"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:textSize="14dp"/>
     </com.qianying.bike.widget.CustomTitlebar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/white"
+        android:background="@color/auto_white"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -69,13 +69,13 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:text="充值"
-            android:textColor="@color/white"
+            android:textColor="@color/auto_white"
             android:textSize="14dp"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@color/auto_white"
         android:id="@+id/rl_deposit"
         android:layout_height="40dp">
 

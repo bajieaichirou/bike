@@ -7,19 +7,35 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.qianying.bike.MainActivity;
 import com.qianying.bike.R;
 import com.qianying.bike.base.BaseActivity;
 import com.qianying.bike.http.HttpResponse;
+import com.qianying.bike.model.AuthInfo;
+import com.qianying.bike.model.NetEntity;
+import com.qianying.bike.model.RegInfo;
+import com.qianying.bike.model.TokenInfo;
 import com.qianying.bike.model.User;
 import com.qianying.bike.model.UserInfo;
 import com.qianying.bike.model.UsersInfo;
+import com.qianying.bike.register.EnsureTelphoneActivity;
 import com.qianying.bike.slidingMenu.mineSecond.CreditScoreActivity;
 import com.qianying.bike.slidingMenu.mineSecond.MineInfoActivity;
 import com.qianying.bike.util.CommUtil;
+import com.qianying.bike.util.JsonUtil;
+import com.qianying.bike.util.SPUtils;
 import com.qianying.bike.util.UserHelper;
 import com.qianying.bike.widget.StatusViewCopy;
+import com.qianying.bike.xutils3.MyCallBack;
+import com.qianying.bike.xutils3.X;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import app.auto.runner.base.intf.FunCallback;
 
 
 /**
@@ -78,14 +94,14 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
 //            }
 //        });
         UsersInfo info = UsersInfo.get(UsersInfo.class);
-        if(info!=null){
-        if (info.getTruename() != null && !info.getTruename().equals("")) {
-            ((TextView) findViewById(R.id.user_id)).setText(info.getTruename());
+        if (info != null) {
+            if (info.getTruename() != null && !info.getTruename().equals("")) {
+                ((TextView) findViewById(R.id.user_id)).setText(info.getTruename());
+            }
+            if (info.getMobile() != null && !info.getMobile().equals("")) {
+                ((TextView) findViewById(R.id.user_id)).setText(info.getMobile());
+            }
         }
-        if (info.getMobile() != null && !info.getMobile().equals("")) {
-            ((TextView) findViewById(R.id.user_id)).setText(info.getMobile());
-        }
-    }
     }
 
     private void initView() {
@@ -186,7 +202,104 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
 //        }
 //    };
 
+        userStatusAndOpen();
+    }
 
+    private RegInfo regInfo;//Register对象
+    private AuthInfo authInfo;//Authorize对象
+    private TokenInfo tokenInfo;
+
+    private void userStatusAndOpen() {
+        regInfo = RegInfo.getRegInfo();
+        tokenInfo = TokenInfo.getTokenInfo();
+        String client_id = regInfo.getApp_key();
+        String state = regInfo.getSeed_secret();
+        String url = regInfo.getSource_url();
+        String access_token = tokenInfo.getAccess_token();
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("client_id", client_id);
+            json.put("state", state);
+            json.put("access_token", access_token);
+            json.put("action", "userStatus");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        X.Post(url, json, new MyCallBack<String>() {
+            @Override
+            protected void onFailure(String message) {
+            }
+
+            @Override
+            public void onSuccess(NetEntity entity) {
+//                Toast.makeText(MainActivity.this,entity.getData().toString(),Toast.LENGTH_LONG).show();
+                if (entity.getStatus().equals("true") && entity.getErrno().equals("0")) {
+                    UsersInfo user = JsonUtil.jsonToEntity(entity.getData().toString(), UsersInfo.class);
+
+//                checkPromise(this);
+                    int stat = 5;
+                    if (user.getIs_paydeposit().equals("0")) stat = 2;
+                    else if (user.getIs_verified().equals("0")) stat = 3;
+                    step(stat);
+
+                }
+            }
+
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainActivity.userStatusAndOpen(this, new FunCallback() {
+            @Override
+            public void simpleRun() {
+                UsersInfo ui = UsersInfo.get(UsersInfo.class);
+                ((TextView) findViewById(R.id.ballet_num)).setText(ui.getBalance());
+
+            }
+        });
+    }
+
+    public void step(int i) {
+
+        switch (i) {
+            case 1:
+                statusTel.setStatus(StatusViewCopy.CURRENT);
+                statusDeposit.setStatus(StatusViewCopy.NEXT);
+                statusCertification.setStatus(StatusViewCopy.NEXT);
+                statusComplete.setStatus(StatusViewCopy.NEXT);
+                break;
+            case 2:
+                statusTel.setStatus(StatusViewCopy.COMPLETE);
+                statusDeposit.setStatus(StatusViewCopy.CURRENT);
+                statusCertification.setStatus(StatusViewCopy.NEXT);
+                statusComplete.setStatus(StatusViewCopy.NEXT);
+                break;
+            case 3:
+                statusTel.setStatus(StatusViewCopy.COMPLETE);
+                statusDeposit.setStatus(StatusViewCopy.COMPLETE);
+                statusCertification.setStatus(StatusViewCopy.CURRENT);
+                statusComplete.setStatus(StatusViewCopy.NEXT);
+                break;
+            case 4:
+                statusTel.setStatus(StatusViewCopy.COMPLETE);
+                statusDeposit.setStatus(StatusViewCopy.COMPLETE);
+                statusCertification.setStatus(StatusViewCopy.COMPLETE);
+                statusComplete.setStatus(StatusViewCopy.CURRENT);
+
+                break;
+            case 5:
+                statusTel.setStatus(StatusViewCopy.COMPLETE);
+                statusDeposit.setStatus(StatusViewCopy.COMPLETE);
+                statusCertification.setStatus(StatusViewCopy.COMPLETE);
+                statusComplete.setStatus(StatusViewCopy.COMPLETE);
+
+                break;
+
+        }
     }
 
     @Override

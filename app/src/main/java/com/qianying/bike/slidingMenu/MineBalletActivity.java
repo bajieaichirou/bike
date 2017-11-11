@@ -7,13 +7,17 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.qianying.bike.MainActivity;
 import com.qianying.bike.R;
 import com.qianying.bike.base.BaseActivity;
+import com.qianying.bike.model.UsersInfo;
 import com.qianying.bike.slidingMenu.ballet.BalletDetailActivity;
 import com.qianying.bike.slidingMenu.ballet.DepositActivity;
 import com.qianying.bike.slidingMenu.ballet.ReturnDepositActivity;
 import com.qianying.bike.widget.CustomDialog;
 import com.qianying.bike.widget.CustomTitlebar;
+
+import app.auto.runner.base.intf.FunCallback;
 
 /**
  * 我的钱包页面
@@ -35,7 +39,22 @@ public class MineBalletActivity extends BaseActivity implements View.OnClickList
         mContext = this;
         setContentView(R.layout.activity_mine_ballet);
 
+
         initViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainActivity.userStatusAndOpen(this, new FunCallback() {
+            @Override
+            public void simpleRun() {
+                UsersInfo ui = UsersInfo.get(UsersInfo.class);
+                ((TextView) findViewById(R.id.ballet_num)).setText(ui.getBalance());
+                ((TextView) findViewById(R.id.txt_deposit)).setText(ui.getDeposit());
+
+            }
+        });
     }
 
     private void initViews() {

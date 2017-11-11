@@ -76,7 +76,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="实名认证"
-        android:textColor="@color/white"
+        android:textColor="@color/auto_white"
         android:textSize="14dp"/>
 
 

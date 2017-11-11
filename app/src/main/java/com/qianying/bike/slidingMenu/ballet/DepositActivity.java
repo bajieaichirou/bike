@@ -25,7 +25,7 @@ public class DepositActivity extends Activity implements View.OnClickListener {
     private CheckBox wxPay;
     private CheckBox aliPay;
 
-    private int changeCount = 100;
+    private float changeCount = 0.01f;
     private String action;
 
     public static void start(Context context) {
@@ -111,24 +111,25 @@ public class DepositActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        changeCount = 0.01f;
         switch (v.getId()) {
             case R.id.txt_charge_100:
-                changeCount = 100;
+//                changeCount = 100;
                 clearChargeColor();
                 charge100.setBackgroundColor(getResources().getColor(R.color.orange));
                 break;
             case R.id.txt_charge_50:
-                changeCount = 50;
+//                changeCount = 50;
                 clearChargeColor();
                 charge50.setBackgroundColor(getResources().getColor(R.color.orange));
                 break;
             case R.id.txt_charge_20:
-                changeCount = 20;
+//                changeCount = 20;
                 clearChargeColor();
                 charge20.setBackgroundColor(getResources().getColor(R.color.orange));
                 break;
             case R.id.txt_charge_10:
-                changeCount = 10;
+//                changeCount = 10;
                 clearChargeColor();
                 charge10.setBackgroundColor(getResources().getColor(R.color.orange));
                 break;

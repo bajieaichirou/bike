@@ -1,1 +1,1 @@
-include ':app', ':lib-zxing', ':pulltorefreshlib'
+include ':app', ':lib-zxing', ':pulltorefreshlib' , ':auto'

@@ -1,13 +1,18 @@
 package com.qianying.bike.customer;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.qianying.bike.R;
 
@@ -51,26 +56,45 @@ public class CustomerHelper {
 
     }
 
+
     private final View.OnClickListener customerClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            String txt = ((TextView) view.findViewById(R.id.txt)).getText().toString().split("\\n")[1];
             Intent intent = new Intent();
             switch (view.getId()) {
                 case R.id.customer_suo_layout:
-                    intent.setClass(mContext,UnLockProblemActivity.class);
-                    break;
+
                 case R.id.customer_guzhang_layout:
-                    intent.setClass(mContext, ProblemBikeActivity.class);
-                    break;
                 case R.id.customer_jubao_layout:
-                    intent.setClass(mContext, ReportActivity.class);
-                    break;
                 case R.id.customer_problem_layout:
-                    intent.setClass(mContext, OtherProblemActivity.class);
-                    break;
+                    if (ActivityCompat.checkSelfPermission(view.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    ;//跳转到拨号界面，同时传递电话号码
+                    try {
+                        view.getContext().startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + txt)));
+                    }catch(Exception e){
+
+                    }
+                    return;
+//                    intent.setClass(mContext,UnLockProblemActivity.class);
+
+//                    intent.setClass(mContext, ProblemBikeActivity.class);
+//                    break;
+//                    intent.setClass(mContext, ReportActivity.class);
+//                    break;
+//                    intent.setClass(mContext, OtherProblemActivity.class);
+//                    break;
             }
 
-            mContext.startActivity(intent);
         }
     };
 

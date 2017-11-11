@@ -86,7 +86,7 @@
         android:background="@color/orange"
         android:gravity="center"
         android:text="@string/charge"
-        android:textColor="@color/white"
+        android:textColor="@color/auto_white"
         android:textSize="16dp"/>
 
     <TextView
